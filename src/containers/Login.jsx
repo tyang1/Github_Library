@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
-import { Redirect } from 'react-router-dom';
+import { signIn } from './actions/API.js';
 import 'bootstrap/dist/css/bootstrap.css';
 import './Login.css';
 
@@ -14,11 +14,10 @@ export default function Login(props) {
     return email.length > 0 && password.length > 0;
   }
 
-  function handleSubmit(event) {
+  async function handleSubmit(event) {
     event.preventDefault();
+    await signIn({ email: 'teefyang7857@gmail.com' });
     setRedirect('/home');
-    //TODO:
-    //reroute to the library home
   }
 
   return (

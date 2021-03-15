@@ -5,7 +5,6 @@ import Nav from 'react-bootstrap/Nav';
 import Routes from './containers/Routes.jsx';
 import 'bootstrap/dist/css/bootstrap.css';
 import { BrowserRouter, Link, Redirect } from 'react-router-dom';
-// import Login from './containers/Login.jsx';
 
 export default function App() {
   let [redirect, setRedirect] = useState(null);
