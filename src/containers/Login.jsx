@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
+import { Redirect } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.css';
 import './Login.css';
 
-export default function Login() {
+export default function Login(props) {
+  const { setRedirect } = props;
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
@@ -14,6 +16,9 @@ export default function Login() {
 
   function handleSubmit(event) {
     event.preventDefault();
+    setRedirect('/home');
+    //TODO:
+    //reroute to the library home
   }
 
   return (

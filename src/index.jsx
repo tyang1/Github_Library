@@ -1,13 +1,22 @@
-import React from 'react';
+import React, { useState } from 'react';
 import ReactDOM from 'react-dom';
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
 import Routes from './containers/Routes.jsx';
 import 'bootstrap/dist/css/bootstrap.css';
-import { BrowserRouter, Link } from 'react-router-dom';
+import { BrowserRouter, Link, Redirect } from 'react-router-dom';
 // import Login from './containers/Login.jsx';
 
 export default function App() {
+  let [redirect, setRedirect] = useState(null);
+  if (redirect) {
+    return (
+      <BrowserRouter>
+        <Redirect to={redirect} />
+        <Routes setRedirect={setRedirect} />
+      </BrowserRouter>
+    );
+  }
   return (
     <div className='App container py-3'>
       <BrowserRouter>
@@ -27,7 +36,7 @@ export default function App() {
             </Nav>
           </Navbar.Collapse>
         </Navbar>
-        <Routes />
+        <Routes setRedirect={setRedirect} />
       </BrowserRouter>
     </div>
   );
