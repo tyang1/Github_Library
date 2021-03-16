@@ -7,7 +7,11 @@ export function signIn(data) {
     data,
   }).then((response) => {
     console.log('get the token', response);
+    // saveToLocalStorage(response);
   });
 }
 
-function saveToLocalStorage() {}
+// async function saveToLocalStorage(res) {
+//   const token = await res.json();
+//   localStorage.setItem('token', token);
+// }

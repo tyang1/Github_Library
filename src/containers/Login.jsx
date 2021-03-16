@@ -16,7 +16,9 @@ export default function Login(props) {
 
   async function handleSubmit(event) {
     event.preventDefault();
-    await signIn({ email: 'teefyang7857@gmail.com' });
+    //TODO: change the email
+    console.log('handleSubmit', event);
+    await signIn({ email: 'teefyang7857@gmail.com', password: '123' });
     setRedirect('/home');
   }
 
