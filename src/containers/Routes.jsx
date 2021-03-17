@@ -10,6 +10,9 @@ export default function Routes(props) {
       <Route path='/login'>
         <Login setRedirect={setRedirect} />
       </Route>
+      <Route path='/signup'>
+        <Login setRedirect={setRedirect} />
+      </Route>
       <Route path='/home'>
         <Home setRedirect={setRedirect} />
       </Route>

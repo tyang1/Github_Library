@@ -3,4 +3,4 @@ const databaseConfiguration = require('./secrets/databaseConfiguration');
 
 const pool = new Pool(databaseConfiguration);
 
-pool.module.exports = pool;
+module.exports = pool;

@@ -7,8 +7,8 @@ const cors = require('cors');
 const { generateAccessToken, authenticateToken } = require('./auth.js');
 
 const start = (options) => {
-  return new Promise((resolve, reject) => {
-    const { port, hostname } = options;
+  return new Promise(async (resolve, reject) => {
+    const { port, hostname, repo } = options;
     app.use(bodyParser.json());
     app.use(cookieParser());
     app.use(cors());
@@ -16,10 +16,13 @@ const start = (options) => {
     app.get('/home', authenticateToken, (req, res) => {
       res.json(req.user);
     });
-    app.get('/signup');
-    app.post('/login', (req, res, next) => {
+    app.post('/signup', async (req, res, next) => {
+      await repo.saveUser(req.body).then((result) => {
+        res.status(201).send(`User added with ID: ${result.insertId}`);
+      });
+    });
+    app.post('/login', async (req, res, next) => {
       //TODO: validate credentials first
-
       let token = generateAccessToken({ email: req.body.email });
       res.json(token);
     });

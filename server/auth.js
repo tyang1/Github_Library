@@ -25,10 +25,18 @@ function generateAccessToken(email) {
   });
 }
 
-function signUp() {}
+function logIn(req, res, next) {
+  // Load hash from your password DB.
+  bcrypt.compare(myPlaintextPassword, hash, function (err, result) {
+    // result == true
+  });
+  bcrypt.compare(someOtherPlaintextPassword, hash, function (err, result) {
+    // result == false
+  });
+}
 
-function logIn(userInfo) {
-  const { email, password } = userInfo;
+function signUp(req, res, next) {
+  const { email, password } = req.body;
   const myPlaintextPassword = password;
   bcrypt.hash(myPlaintextPassword, saltRounds, function (err, hash) {
     // Store hash in your password DB.

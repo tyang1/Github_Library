@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
-import { signIn } from './actions/API.js';
+import { signUp } from './actions/API.js';
 import 'bootstrap/dist/css/bootstrap.css';
 import './Login.css';
 
@@ -18,7 +18,7 @@ export default function Login(props) {
     event.preventDefault();
     //TODO: change the email
     console.log('handleSubmit', event);
-    await signIn({ email: 'teefyang7857@gmail.com', password: '123' });
+    await signUp({ email, password });
     setRedirect('/home');
   }
 

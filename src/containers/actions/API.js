@@ -1,8 +1,8 @@
 const axios = require('axios').default;
 
-export function signIn(data) {
+export function signUp(data) {
   axios({
-    url: `${process.env.API_URL}/login`,
+    url: `${process.env.API_URL}/signup`,
     method: 'post',
     data,
   }).then((response) => {
