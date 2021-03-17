@@ -3,11 +3,11 @@ const repository = (db) => {
   //return the db interfaces
   const saveUser = (userInfo) => {
     return new Promise((resolve, reject) => {
-      const { email, password } = userInfo;
+      const { email, hash } = userInfo;
       db.query(
         'INSERT INTO users(email, password) VALUES($1, $2) RETURNING id',
-        [email, password],
-        async (error, response) => {
+        [email, hash],
+        (error, response) => {
           if (error) reject(error);
           resolve(response);
         }
@@ -15,13 +15,22 @@ const repository = (db) => {
     });
   };
 
-  const getUser = (userInfo) => {
-    return new Promise((resolve, reject) => {});
+  const getHash = (email) => {
+    return new Promise((resolve, reject) => {
+      db.query(
+        'SELECT * FROM users WHERE email = $1',
+        [email],
+        (error, response) => {
+          if (err) reject(error);
+          resolve(response[0]);
+        }
+      );
+    });
   };
 
   return Object.create({
     saveUser,
-    getUser,
+    getHash,
   });
 };
 

@@ -26,21 +26,40 @@ function generateAccessToken(email) {
 }
 
 function logIn(req, res, next) {
-  // Load hash from your password DB.
-  bcrypt.compare(myPlaintextPassword, hash, function (err, result) {
-    // result == true
-  });
-  bcrypt.compare(someOtherPlaintextPassword, hash, function (err, result) {
-    // result == false
-  });
+  return (repo) => {
+    const { email, password } = req.body;
+    const myPlaintextPassword = password;
+    if (!email || !password) {
+      return res.status(400).send({ message: 'Some values are missing' });
+    }
+    // Load hash from your password DB.
+    repo.getHash(email).then((hash) => {
+      if (!hash) {
+        return res
+          .status(400)
+          .send({ message: 'The credentials you provided is incorrect' });
+      }
+      bcrypt.compare(myPlaintextPassword, hash, async (err, result) => {
+        if (result == true) {
+          let token = generateAccessToken({ email: req.body.email });
+          res.json(token);
+        }
+      });
+    });
+  };
 }
 
 function signUp(req, res, next) {
-  const { email, password } = req.body;
-  const myPlaintextPassword = password;
-  bcrypt.hash(myPlaintextPassword, saltRounds, function (err, hash) {
-    // Store hash in your password DB.
-  });
+  return (repo) => {
+    const { email, password } = req.body;
+    const myPlaintextPassword = password;
+    bcrypt.hash(myPlaintextPassword, saltRounds, (err, hash) => {
+      // Store hash in your password DB.
+      repo.saveUser({ email, hash }).then((result) => {
+        res.status(201).send(`User added with ID: ${result.id}`);
+      });
+    });
+  };
   //
 }
 

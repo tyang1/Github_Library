@@ -4,7 +4,7 @@ const path = require('path');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const cors = require('cors');
-const { generateAccessToken, authenticateToken } = require('./auth.js');
+const { signUp, logIn, authenticateToken } = require('./auth.js');
 
 const start = (options) => {
   return new Promise(async (resolve, reject) => {
@@ -16,15 +16,11 @@ const start = (options) => {
     app.get('/home', authenticateToken, (req, res) => {
       res.json(req.user);
     });
-    app.post('/signup', async (req, res, next) => {
-      await repo.saveUser(req.body).then((result) => {
-        res.status(201).send(`User added with ID: ${result.insertId}`);
-      });
+    app.post('/signup', (req, res, next) => {
+      signUp(req, res, next)(repo);
     });
-    app.post('/login', async (req, res, next) => {
-      //TODO: validate credentials first
-      let token = generateAccessToken({ email: req.body.email });
-      res.json(token);
+    app.post('/login', (req, res, next) => {
+      logIn(req, res, next)(repo);
     });
     const server = app.listen(port, hostname, () => {
       console.log(`Listening on port ${port}, with hostname ${hostname}`);
