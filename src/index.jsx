@@ -13,7 +13,11 @@ export default function App() {
     return (
       <BrowserRouter>
         <Redirect to={redirect} />
-        <Routes paths={{ signUp, logIn }} setRedirect={setRedirect} />
+        <Routes
+          level='root'
+          paths={{ signUp, logIn }}
+          setRedirect={setRedirect}
+        />
       </BrowserRouter>
     );
   }
@@ -36,7 +40,11 @@ export default function App() {
             </Nav>
           </Navbar.Collapse>
         </Navbar>
-        <Routes paths={{ signUp, logIn }} setRedirect={setRedirect} />
+        <Routes
+          level='root'
+          paths={{ signUp, logIn }}
+          setRedirect={setRedirect}
+        />
       </BrowserRouter>
     </div>
   );

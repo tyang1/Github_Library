@@ -10,9 +10,9 @@ export function signUp(data) {
   });
 }
 
-export function logIn() {
+export function logIn(data) {
   axios({
-    url: `${process.env.API_URL}/signup`,
+    url: `${process.env.API_URL}/login`,
     method: 'post',
     data,
   }).then(async (response) => {

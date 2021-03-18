@@ -21,7 +21,7 @@ const repository = (db) => {
         'SELECT * FROM users WHERE email = $1',
         [email],
         (error, response) => {
-          if (err) reject(error);
+          if (error) reject(error);
           resolve(response.rows[0]);
         }
       );
