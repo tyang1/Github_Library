@@ -9,20 +9,20 @@ const repository = (db) => {
         [email, hash],
         (error, response) => {
           if (error) reject(error);
-          resolve(response);
+          resolve(response.rows[0]);
         }
       );
     });
   };
 
-  const getHash = (email) => {
+  const getPwdHash = (email) => {
     return new Promise((resolve, reject) => {
       db.query(
         'SELECT * FROM users WHERE email = $1',
         [email],
         (error, response) => {
           if (err) reject(error);
-          resolve(response[0]);
+          resolve(response.rows[0]);
         }
       );
     });
@@ -30,7 +30,7 @@ const repository = (db) => {
 
   return Object.create({
     saveUser,
-    getHash,
+    getPwdHash,
   });
 };
 

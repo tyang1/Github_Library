@@ -18,9 +18,9 @@ function authenticateToken(req, res, next) {
   });
 }
 
-function generateAccessToken(email) {
+function generateAccessToken(id) {
   // expires after half and hour (1800 seconds = 30 minutes)
-  return jwt.sign(email, process.env.ACCESS_TOKEN_SECRET, {
+  return jwt.sign({ id }, process.env.ACCESS_TOKEN_SECRET, {
     expiresIn: '1800s',
   });
 }
@@ -33,7 +33,7 @@ function logIn(req, res, next) {
       return res.status(400).send({ message: 'Some values are missing' });
     }
     // Load hash from your password DB.
-    repo.getHash(email).then((hash) => {
+    repo.getPwdHash(email).then((hash) => {
       if (!hash) {
         return res
           .status(400)
@@ -56,7 +56,9 @@ function signUp(req, res, next) {
     bcrypt.hash(myPlaintextPassword, saltRounds, (err, hash) => {
       // Store hash in your password DB.
       repo.saveUser({ email, hash }).then((result) => {
-        res.status(201).send(`User added with ID: ${result.id}`);
+        let token = generateAccessToken(result.id);
+        res.json(token);
+        // res.status(201).send(`User added with ID: ${result.id}`);
       });
     });
   };
