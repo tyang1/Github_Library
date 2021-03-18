@@ -2,7 +2,6 @@ import React from 'react';
 import InputGroup from 'react-bootstrap/InputGroup';
 import FormControl from 'react-bootstrap/FormControl';
 import Button from 'react-bootstrap/Button';
-// import BasicListView from './BasicListView';
 import BootstrapTable from 'react-bootstrap-table-next';
 import 'bootstrap/dist/css/bootstrap.css';
 import 'react-bootstrap-table-next/dist/react-bootstrap-table2.min.css';
@@ -70,7 +69,7 @@ function ArticleResults(props) {
       ) : uiView.isCoversList ? (
         <CoversView articles={articles} />
       ) : null} */}
-      <BootstrapTable data={articles} colums={columns} />
+      <BootstrapTable keyField='id' data={articles} columns={columns} />
     </>
   );
 }
