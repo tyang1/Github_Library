@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Route, Switch } from 'react-router-dom';
-import Articles from '../components/Articles.jsx';
+import Articles from '../components/ArticleViews/Articles.jsx';
 
 export default function HomeRoutes(props) {
   const { setRedirect } = props;

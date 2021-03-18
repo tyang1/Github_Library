@@ -11,7 +11,8 @@ import { Link } from 'react-router-dom';
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
 import HomeRoutes from './HomeRoutes.jsx';
-import Articles from '../components/Articles.jsx';
+import Articles from '../components/ArticleViews/Articles.jsx';
+import mock from '../state/mock.js';
 import 'bootstrap/dist/css/bootstrap.css';
 
 // export const AppContext = createContext(null);
@@ -19,6 +20,12 @@ import 'bootstrap/dist/css/bootstrap.css';
 
 export default function Home() {
   let [redirect, setRedirect] = useState(null);
+  const [articles, setArticles] = useState([]);
+
+  useEffect(() => {
+    setArticles(mock.articles);
+  }, [mock]);
+
   return (
     <div className='App container py-3'>
       <Navbar bg='light' expand='lg'>
@@ -36,7 +43,7 @@ export default function Home() {
         </Navbar.Collapse>
       </Navbar>
       {/* <HomeRoutes setRedirect={setRedirect} /> */}
-      <Articles />
+      <Articles articles={articles} />
     </div>
   );
 }
