@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
+import MessageBox from '../components/MessageBox.jsx';
 import 'bootstrap/dist/css/bootstrap.css';
 import './Login.css';
 
@@ -8,6 +9,7 @@ export default function Login(props) {
   const { setRedirect, submitHandler } = props;
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [error, setModalShow] = useState(false);
 
   function validateForm() {
     return email.length > 0 && password.length > 0;
@@ -15,8 +17,13 @@ export default function Login(props) {
 
   async function handleSubmit(event) {
     event.preventDefault();
-    await submitHandler({ email, password });
-    setRedirect('/home');
+    await submitHandler({ email, password })
+      .then((success) => {
+        setRedirect('/home');
+      })
+      .catch((err) => {
+        setModalShow('The credentials provided is incorrect');
+      });
   }
 
   return (
@@ -43,6 +50,7 @@ export default function Login(props) {
           Login
         </Button>
       </Form>
+      {error ? <MessageBox error={error} onClose={setModalShow} /> : null}
     </div>
   );
 }

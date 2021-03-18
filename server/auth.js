@@ -42,7 +42,11 @@ function logIn(req, res, next) {
             .send({ message: 'The credentials you provided is incorrect' });
         }
         bcrypt.compare(myPlaintextPassword, password, async (err, result) => {
-          if (result == true) {
+          if (!result) {
+            return res
+              .status(400)
+              .send({ message: 'The credentials you provided is incorrect' });
+          } else {
             let token = generateAccessToken(response.id);
             res.json(token);
           }
@@ -56,6 +60,7 @@ function logIn(req, res, next) {
 
 function signUp(req, res, next) {
   return (repo) => {
+    //check to see if the email already existed
     const { email, password } = req.body;
     const myPlaintextPassword = password;
     bcrypt.hash(myPlaintextPassword, saltRounds, (err, hash) => {
