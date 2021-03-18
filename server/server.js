@@ -16,6 +16,8 @@ const start = (options) => {
     app.get('/home', authenticateToken, (req, res) => {
       res.json(req.user);
     });
+    app.use('/signup', express.static('dist'));
+    app.use('/login', express.static('dist'));
     app.post('/signup', (req, res, next) => {
       signUp(req, res, next)(repo);
     });

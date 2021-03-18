@@ -5,6 +5,7 @@ import Nav from 'react-bootstrap/Nav';
 import Routes from './containers/Routes.jsx';
 import 'bootstrap/dist/css/bootstrap.css';
 import { BrowserRouter, Link, Redirect } from 'react-router-dom';
+import { signUp, logIn } from './actions/API.js';
 
 export default function App() {
   let [redirect, setRedirect] = useState(null);
@@ -12,7 +13,7 @@ export default function App() {
     return (
       <BrowserRouter>
         <Redirect to={redirect} />
-        <Routes setRedirect={setRedirect} />
+        <Routes paths={{ signUp, logIn }} setRedirect={setRedirect} />
       </BrowserRouter>
     );
   }
@@ -35,7 +36,7 @@ export default function App() {
             </Nav>
           </Navbar.Collapse>
         </Navbar>
-        <Routes setRedirect={setRedirect} />
+        <Routes paths={{ signUp, logIn }} setRedirect={setRedirect} />
       </BrowserRouter>
     </div>
   );

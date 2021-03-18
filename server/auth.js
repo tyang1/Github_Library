@@ -33,15 +33,16 @@ function logIn(req, res, next) {
       return res.status(400).send({ message: 'Some values are missing' });
     }
     // Load hash from your password DB.
-    repo.getPwdHash(email).then((hash) => {
-      if (!hash) {
+    repo.getPwdHash(email).then((response) => {
+      const { password } = response;
+      if (!password) {
         return res
           .status(400)
           .send({ message: 'The credentials you provided is incorrect' });
       }
-      bcrypt.compare(myPlaintextPassword, hash, async (err, result) => {
+      bcrypt.compare(myPlaintextPassword, password, async (err, result) => {
         if (result == true) {
-          let token = generateAccessToken({ email: req.body.email });
+          let token = generateAccessToken(response.id);
           res.json(token);
         }
       });
