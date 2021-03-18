@@ -3,7 +3,6 @@ import { Route, Switch } from 'react-router-dom';
 import Articles from '../components/Articles.jsx';
 
 export default function HomeRoutes(props) {
-  console.log('inside HomeRoutes');
   const { setRedirect } = props;
   return (
     <Switch>

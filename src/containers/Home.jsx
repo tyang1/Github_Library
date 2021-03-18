@@ -11,6 +11,7 @@ import { Link } from 'react-router-dom';
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
 import HomeRoutes from './HomeRoutes.jsx';
+import Articles from '../components/Articles.jsx';
 import 'bootstrap/dist/css/bootstrap.css';
 
 // export const AppContext = createContext(null);
@@ -34,7 +35,8 @@ export default function Home() {
           </Nav>
         </Navbar.Collapse>
       </Navbar>
-      <HomeRoutes setRedirect={setRedirect} />
+      {/* <HomeRoutes setRedirect={setRedirect} /> */}
+      <Articles />
     </div>
   );
 }

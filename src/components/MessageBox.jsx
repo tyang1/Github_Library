@@ -6,7 +6,7 @@ export default function MessageBox(props) {
   const { error, onClose } = props;
 
   return (
-    <Modal show={error} onHide={() => onClose(false)}>
+    <Modal show={!!error} onHide={() => onClose(false)}>
       <Modal.Header closeButton>
         <Modal.Title></Modal.Title>
       </Modal.Header>
