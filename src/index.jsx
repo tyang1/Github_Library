@@ -1,14 +1,15 @@
-import React, { useState } from 'react';
-import ReactDOM from 'react-dom';
-import Navbar from 'react-bootstrap/Navbar';
-import Nav from 'react-bootstrap/Nav';
-import Routes from './containers/Routes.jsx';
-import 'bootstrap/dist/css/bootstrap.css';
-import { BrowserRouter, Link, Redirect } from 'react-router-dom';
-import { signUp, logIn } from './actions/API.js';
+import React, { useState } from "react";
+import ReactDOM from "react-dom";
+import Navbar from "react-bootstrap/Navbar";
+import Nav from "react-bootstrap/Nav";
+import Routes from "./containers/Routes.jsx";
+import "bootstrap/dist/css/bootstrap.css";
+import { BrowserRouter, Link, Redirect } from "react-router-dom";
+import { signUp, logIn } from "./actions/API.js";
 
 export default function App() {
-  let [redirect, setRedirect] = useState(null);
+  let [redirect, setRedirect] = useState(null); //switch between SignUp or Login
+  //let the initial render checks for the localStorage
   if (redirect) {
     return (
       <BrowserRouter>
@@ -17,21 +18,23 @@ export default function App() {
       </BrowserRouter>
     );
   }
+  //if the initial render doesn't have token in the localstorage, then change
+  //the current route to the main page for signUp/logIn
   return (
-    <div className='App container py-3'>
+    <div className="App container py-3">
       <BrowserRouter>
-        <Navbar collapseOnSelect bg='light' expand='md' className='mb-3'>
-          <Navbar.Brand href='/' className='font-weight-bold text-muted'>
+        <Navbar collapseOnSelect bg="light" expand="md" className="mb-3">
+          <Navbar.Brand href="/" className="font-weight-bold text-muted">
             Github Library
           </Navbar.Brand>
           <Navbar.Toggle />
-          <Navbar.Collapse className='justify-content-end'>
+          <Navbar.Collapse className="justify-content-end">
             <Nav>
               <Nav.Link>
-                <Link to='/signup'>Signup</Link>
+                <Link to="/signup">Signup</Link>
               </Nav.Link>
               <Nav.Link>
-                <Link to='/login'>Login</Link>
+                <Link to="/login">Login</Link>
               </Nav.Link>
             </Nav>
           </Navbar.Collapse>
@@ -43,7 +46,7 @@ export default function App() {
 }
 
 const renderApp = () => {
-  ReactDOM.render(<App />, document.getElementById('app'));
+  ReactDOM.render(<App />, document.getElementById("app"));
 };
 
 renderApp();

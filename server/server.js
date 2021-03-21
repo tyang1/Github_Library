@@ -1,10 +1,10 @@
-const express = require('express');
+const { signUp, logIn, authenticateToken } = require("./auth.js");
+const express = require("express");
 const app = express();
-const path = require('path');
-const bodyParser = require('body-parser');
-const cookieParser = require('cookie-parser');
-const cors = require('cors');
-const { signUp, logIn, authenticateToken } = require('./auth.js');
+const path = require("path");
+const bodyParser = require("body-parser");
+const cookieParser = require("cookie-parser");
+const cors = require("cors");
 
 const start = (options) => {
   return new Promise(async (resolve, reject) => {
@@ -12,16 +12,16 @@ const start = (options) => {
     app.use(bodyParser.json());
     app.use(cookieParser());
     app.use(cors());
-    app.use('/', express.static('dist'));
-    app.get('/home', authenticateToken, (req, res) => {
+    app.use("/", express.static("dist"));
+    app.get("/home", authenticateToken, (req, res) => {
       res.json(req.user);
     });
-    app.use('/signup', express.static('dist'));
-    app.use('/login', express.static('dist'));
-    app.post('/signup', (req, res, next) => {
+    app.use("/signup", express.static("dist"));
+    app.use("/login", express.static("dist"));
+    app.post("/signup", (req, res, next) => {
       signUp(req, res, next)(repo);
     });
-    app.post('/login', (req, res, next) => {
+    app.post("/login", (req, res, next) => {
       logIn(req, res, next)(repo);
     });
     const server = app.listen(port, hostname, () => {

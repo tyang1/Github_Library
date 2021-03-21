@@ -20,7 +20,7 @@ import "bootstrap/dist/css/bootstrap.css";
 export default function Home() {
   let [redirect, setRedirect] = useState(null);
   const [articles, setArticles] = useState([]);
-  let { path, url } = useRouteMatch();
+  let { url } = useRouteMatch();
 
   useEffect(() => {
     setArticles(mock.articles);
@@ -43,7 +43,6 @@ export default function Home() {
         </Navbar.Collapse>
       </Navbar>
       <HomeRoutes url={url} articles={articles} setRedirect={setRedirect} />
-      {/* <Articles articles={articles} /> */}
     </div>
   );
 }
