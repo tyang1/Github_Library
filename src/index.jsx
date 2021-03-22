@@ -3,9 +3,9 @@ import ReactDOM from "react-dom";
 import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
 import Routes from "./containers/Routes.jsx";
-import "bootstrap/dist/css/bootstrap.css";
 import { BrowserRouter, Link, Redirect } from "react-router-dom";
 import { signUp, logIn } from "./actions/API.js";
+import "bootstrap/dist/css/bootstrap.css";
 
 export default function App() {
   let [redirect, setRedirect] = useState(null); //switch between SignUp or Login
