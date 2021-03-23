@@ -1,16 +1,17 @@
-const axios = require('axios').default;
+const fetch = require("cross-fetch");
 
 export function signUp(data) {
   return new Promise((resolve, reject) => {
-    axios({
-      url: `${process.env.API_URL}/signup`,
-      method: 'post',
-      data,
+    fetch(`${process.env.API_URL}/signup`, {
+      method: "POST",
+      body: JSON.stringify(data),
+      headers: {
+        "Content-Type": "application/json",
+        "Content-Type": "text/html",
+      },
     })
-      .then(async (response) => {
-        await saveToLocalStorage(response.data);
-        resolve(true);
-      })
+      .then((res) => res.json())
+      .then((data) => resolve(true))
       .catch((error) => {
         console.log(error);
         reject(error);
@@ -20,13 +21,19 @@ export function signUp(data) {
 
 export function logIn(data) {
   return new Promise((resolve, reject) => {
-    axios({
-      url: `${process.env.API_URL}/login`,
-      method: 'post',
-      data,
+    fetch(`${process.env.API_URL}/login`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*",
+      },
+      body: JSON.stringify(data),
+      credentials: "same-origin",
     })
-      .then(async (response) => {
-        await saveToLocalStorage(response.data);
+      .then((response) => {
+        return response.json();
+      })
+      .then((data) => {
         resolve(true);
       })
       .catch((error) => {
@@ -34,8 +41,4 @@ export function logIn(data) {
         reject(error);
       });
   });
-}
-
-async function saveToLocalStorage(token) {
-  localStorage.setItem('token', token);
 }
