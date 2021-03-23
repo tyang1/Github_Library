@@ -18,7 +18,6 @@ import "bootstrap/dist/css/bootstrap.css";
 // export const ModuleUpdateContext = createContext(null);
 
 export default function Home() {
-  let [redirect, setRedirect] = useState(null);
   const [articles, setArticles] = useState([]);
   let { url } = useRouteMatch();
 
@@ -42,7 +41,7 @@ export default function Home() {
           </Nav>
         </Navbar.Collapse>
       </Navbar>
-      <HomeRoutes url={url} articles={articles} setRedirect={setRedirect} />
+      <HomeRoutes url={url} articles={articles} />
     </div>
   );
 }

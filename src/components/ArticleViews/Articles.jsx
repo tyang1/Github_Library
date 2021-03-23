@@ -12,10 +12,6 @@ export default function Articles(props) {
   const { SearchBar } = Search;
   const columns = [
     {
-      dataField: "id",
-      text: "Article ID",
-    },
-    {
       dataField: "title",
       text: "Article Name",
       sort: true,

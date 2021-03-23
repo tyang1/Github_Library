@@ -51,9 +51,9 @@ function logIn(req, res, next) {
               .status(400)
               .send({ message: "The credentials you provided is incorrect" });
           } else {
+            console.log("passed the login auth!!!");
             let token = generateAccessToken(response.id);
             addCookie(res, token);
-            res.json(token);
           }
         });
       });
@@ -82,12 +82,13 @@ function signUp(req, res, next) {
 }
 
 function addCookie(res, token) {
-  res.cookie("jwt_token", token, {
-    expires: new Date(Date.now() + 16 * 3600000),
-    path: "/",
-    httpOnly: true,
-    sameSite: "strict",
-  });
+  res
+    .cookie("jwt_token", token, {
+      expires: new Date(Date.now() + 16 * 3600000),
+      httpOnly: true,
+      domain: `http://${process.env.DOTENV_CONFIG_HOST}:${process.env.DOTENV_CONFIG_PORT}`,
+    })
+    .json(token);
 }
 
 function checkCookie(req, token) {}

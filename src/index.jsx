@@ -9,7 +9,7 @@ import "bootstrap/dist/css/bootstrap.css";
 
 export default function App() {
   let [redirect, setRedirect] = useState(null); //switch between SignUp or Login
-  //let the initial render checks for the localStorage
+  //let the initial render checks for the cookie
   if (redirect) {
     return (
       <BrowserRouter>
