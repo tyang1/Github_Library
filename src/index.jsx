@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import ReactDOM from "react-dom";
 import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
-import Routes from "./containers/Routes.jsx";
 import { BrowserRouter, Link, Redirect } from "react-router-dom";
 import { signUp, logIn } from "./actions/API.js";
 import "bootstrap/dist/css/bootstrap.css";
@@ -39,7 +38,17 @@ export default function App() {
             </Nav>
           </Navbar.Collapse>
         </Navbar>
-        <Routes paths={{ signUp, logIn }} setRedirect={setRedirect} />
+        <Switch>
+          <Route path="/login">
+            <Login submitHandler={logIn} setRedirect={setRedirect} />
+          </Route>
+          <Route path="/signup">
+            <Login submitHandler={signUp} setRedirect={setRedirect} />
+          </Route>
+          <Route path="/home">
+            <Home />
+          </Route>
+        </Switch>
       </BrowserRouter>
     </div>
   );

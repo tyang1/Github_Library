@@ -10,9 +10,9 @@ import React, {
 import { Link, useRouteMatch } from "react-router-dom";
 import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
-import HomeRoutes from "./HomeRoutes.jsx";
 import mock from "../state/mock.js";
 import "bootstrap/dist/css/bootstrap.css";
+import Switch from "react-bootstrap/esm/Switch";
 
 // export const AppContext = createContext(null);
 // export const ModuleUpdateContext = createContext(null);
@@ -41,7 +41,11 @@ export default function Home() {
           </Nav>
         </Navbar.Collapse>
       </Navbar>
-      <HomeRoutes url={url} articles={articles} />
+      <Switch>
+        <Route path={`${url}/articles`}>
+          <Articles articles={articles} />
+        </Route>
+      </Switch>
     </div>
   );
 }
