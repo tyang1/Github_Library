@@ -7,12 +7,13 @@ import React, {
   Suspense,
   useMemo,
 } from "react";
-import { Link, useRouteMatch } from "react-router-dom";
+import { Link, useRouteMatch, Switch, Route } from "react-router-dom";
 import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
 import mock from "../state/mock.js";
+import Articles from "../components/ArticleViews/Articles.jsx";
+
 import "bootstrap/dist/css/bootstrap.css";
-import Switch from "react-bootstrap/esm/Switch";
 
 // export const AppContext = createContext(null);
 // export const ModuleUpdateContext = createContext(null);
