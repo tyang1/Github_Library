@@ -13,6 +13,7 @@ export default function App() {
   //let the initial render checks for the cookie
   //if the initial render doesn't have token in the localstorage, then change
   //the current route to the main page for signUp/logIn
+
   return (
     <div className="App container py-3">
       <BrowserRouter>

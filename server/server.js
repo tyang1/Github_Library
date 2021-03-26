@@ -1,10 +1,10 @@
 const { signUp, logIn, authenticateToken } = require("./auth.js");
 const express = require("express");
 const app = express();
-const path = require("path");
 const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 const cors = require("cors");
+const { getAllArticles } = require("./articleController.js");
 
 const start = (options) => {
   return new Promise(async (resolve, reject) => {
@@ -15,6 +15,9 @@ const start = (options) => {
     app.use("/", express.static("dist"));
     app.get("/home", authenticateToken, (req, res) => {
       res.json(req.user);
+    });
+    app.get("/articles", (req, res, next) => {
+      getAllArticles(req, res, next)(repo);
     });
     app.use("/signup", express.static("dist"));
     app.use("/login", express.static("dist"));
