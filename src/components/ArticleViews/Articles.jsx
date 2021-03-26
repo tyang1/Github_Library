@@ -1,14 +1,13 @@
-import React from "react";
-import InputGroup from "react-bootstrap/InputGroup";
-import FormControl from "react-bootstrap/FormControl";
-import Button from "react-bootstrap/Button";
+import React, { useState, useEffect } from "react";
 import BootstrapTable from "react-bootstrap-table-next";
+import Button from "react-bootstrap/Button";
 import ToolkitProvider, { Search } from "react-bootstrap-table2-toolkit";
+import mock from "../../state/mock.js";
 import "bootstrap/dist/css/bootstrap.css";
 import "react-bootstrap-table-next/dist/react-bootstrap-table2.min.css";
-//
+
 export default function Articles(props) {
-  const { articles } = props;
+  const { articles, setArticles } = props;
   const { SearchBar } = Search;
   const columns = [
     {
@@ -34,6 +33,11 @@ export default function Articles(props) {
     overflowWrap: "break-word",
   };
   // const { isPending } = useContext(ModuleUpdateContext);
+  const addArticle = (article) => {
+    let list = [...articles];
+    list.push(article);
+    setArticles(list);
+  };
   return (
     <>
       {!articles.length ? <div>No articles found</div> : null}
@@ -43,6 +47,13 @@ export default function Articles(props) {
             <h2>Search By Article Name:</h2>
             <SearchBar {...props.searchProps} />
             <hr />
+            <Button
+              onClick={() => {
+                addArticle(addTest);
+              }}
+            >
+              add more articles
+            </Button>
             <BootstrapTable {...props.baseProps} rowStyle={rowStyle} />
           </div>
         )}

@@ -44,7 +44,7 @@ export default function Home() {
       </Navbar>
       <Switch>
         <Route path={`${url}/articles`}>
-          <Articles articles={articles} />
+          <Articles articles={articles} setArticles={setArticles} />
         </Route>
       </Switch>
     </div>

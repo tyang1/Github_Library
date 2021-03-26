@@ -59,7 +59,7 @@ export default function App() {
               <Route path="/home">
                 <Home />
               </Route>
-            </Switch>{" "}
+            </Switch>
           </>
         )}
       </BrowserRouter>
