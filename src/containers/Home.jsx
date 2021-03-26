@@ -7,11 +7,12 @@ import React, {
   Suspense,
   useMemo,
 } from "react";
-import { Link, useRouteMatch } from "react-router-dom";
+import { Link, useRouteMatch, Switch, Route } from "react-router-dom";
 import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
-import HomeRoutes from "./HomeRoutes.jsx";
 import mock from "../state/mock.js";
+import Articles from "../components/ArticleViews/Articles.jsx";
+
 import "bootstrap/dist/css/bootstrap.css";
 
 // export const AppContext = createContext(null);
@@ -41,7 +42,11 @@ export default function Home() {
           </Nav>
         </Navbar.Collapse>
       </Navbar>
-      <HomeRoutes url={url} articles={articles} />
+      <Switch>
+        <Route path={`${url}/articles`}>
+          <Articles articles={articles} setArticles={setArticles} />
+        </Route>
+      </Switch>
     </div>
   );
 }
