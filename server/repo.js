@@ -5,7 +5,7 @@ const repository = (db) => {
     return new Promise((resolve, reject) => {
       const { email, hash } = userInfo;
       db.query(
-        'INSERT INTO users(email, password) VALUES($1, $2) RETURNING id',
+        "INSERT INTO users(email, password) VALUES($1, $2) RETURNING id",
         [email, hash],
         (error, response) => {
           if (error) reject(error);
@@ -18,7 +18,7 @@ const repository = (db) => {
   const getPwdHash = (email) => {
     return new Promise((resolve, reject) => {
       db.query(
-        'SELECT * FROM users WHERE email = $1',
+        "SELECT * FROM users WHERE email = $1",
         [email],
         (error, response) => {
           if (error) reject(error);
@@ -28,16 +28,26 @@ const repository = (db) => {
     });
   };
 
+  const getAllArticles = () => {
+    return new Promise((resolve, reject) => {
+      db.query("SELECT * FROM article", (error, response) => {
+        if (error) reject(error);
+        resolve(response.rows);
+      });
+    });
+  };
+
   return Object.create({
     saveUser,
     getPwdHash,
+    getAllArticles,
   });
 };
 
 const connect = (connection) => {
   return new Promise((resolve, reject) => {
     if (!connection) {
-      reject(new Error('connection db not supplied!'));
+      reject(new Error("connection db not supplied!"));
     }
     resolve(repository(connection));
   });
