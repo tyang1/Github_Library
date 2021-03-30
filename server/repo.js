@@ -9,7 +9,7 @@ const repository = (db) => {
         [email, hash],
         (error, response) => {
           if (error) reject(error);
-          resolve(response.rows[0]);
+          resolve(response);
         }
       );
     });
