@@ -5,6 +5,7 @@ import ReactDOM from "react-dom";
 import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
 import Login from "./containers/Login.jsx";
+import Signup from "./containers/Signup.jsx";
 import Home from "./containers/Home.jsx";
 import "bootstrap/dist/css/bootstrap.css";
 
@@ -25,7 +26,7 @@ export default function App() {
                 <Login submitHandler={logIn} setRedirect={setRedirect} />
               </Route>
               <Route path="/signup">
-                <Login submitHandler={signUp} setRedirect={setRedirect} />
+                <Signup submitHandler={signUp} setRedirect={setRedirect} />
               </Route>
               <Route path="/home">
                 <Home />
@@ -42,10 +43,7 @@ export default function App() {
               <Navbar.Collapse className="justify-content-end">
                 <Nav>
                   <Nav.Link>
-                    <Link to="/signup">Signup</Link>
-                  </Nav.Link>
-                  <Nav.Link>
-                    <Link to="/login">Login</Link>
+                    <Link to="/login">Sign Up/Login</Link>
                   </Nav.Link>
                 </Nav>
               </Navbar.Collapse>
@@ -53,9 +51,6 @@ export default function App() {
             <Switch>
               <Route path="/login">
                 <Login submitHandler={logIn} setRedirect={setRedirect} />
-              </Route>
-              <Route path="/signup">
-                <Login submitHandler={signUp} setRedirect={setRedirect} />
               </Route>
               <Route path="/home">
                 <Home />

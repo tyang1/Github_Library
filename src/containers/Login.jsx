@@ -1,61 +1,56 @@
 import React, { useState } from "react";
-import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
-import MessageBox from "../components/MessageBox.jsx";
+import UserForm from "../components/UserForm.jsx";
 import "bootstrap/dist/css/bootstrap.css";
-import "./Login.css";
+import "./LogIn.css";
 
 export default function Login(props) {
-  const { setRedirect, submitHandler } = props;
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [error, setModalShow] = useState(false);
+  const { submitHandler, setRedirect } = props;
+  const [mode, setMode] = useState(null);
 
-  function validateForm() {
-    return email.length > 0 && password.length > 0;
-  }
-
-  async function handleSubmit(event) {
+  function handleSubmit({ event, email, password, setModalShow }) {
     //todo: figuring out why the /login is being called twice, and there's no cookie sent with response
     event.preventDefault();
-    await submitHandler({ email, password })
-      .then((success) => {
-        if (success) {
-          setRedirect("/home");
-          return true;
-        }
-      })
-      .catch((err) => {
-        setModalShow("The credentials provided is incorrect");
-      });
-    return false;
+    if (mode == "logIn") {
+      submitHandler({ email, password })
+        .then((success) => {
+          if (success) {
+            setRedirect("/home");
+            return true;
+          } else {
+            return false;
+          }
+        })
+        .catch((err) => {
+          setModalShow("The credentials provided is incorrect");
+          return false;
+        });
+    } else {
+      setRedirect("/signup");
+    }
   }
 
   return (
-    <div className="Login">
-      <Form noValidate onSubmit={handleSubmit}>
-        <Form.Group size="lg" controlId="formBasicEmail">
-          <Form.Label>Email</Form.Label>
-          <Form.Control
-            autoFocus
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-        </Form.Group>
-        <Form.Group size="lg" controlId="formBasicPassword">
-          <Form.Label>Password</Form.Label>
-          <Form.Control
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-        </Form.Group>
-        <Button block size="lg" type="submit" disabled={!validateForm()}>
-          Login
+    <UserForm
+      mode={mode}
+      setMode={setMode}
+      setRedirect={setRedirect}
+      handleSubmit={handleSubmit}
+      buttonText={"Log in"}
+    >
+      {({ setMode }) => (
+        <Button
+          block
+          size="lg"
+          type="submit"
+          disabled={false}
+          onClick={() => {
+            setMode("signUp");
+          }}
+        >
+          Create User Account
         </Button>
-      </Form>
-      {error ? <MessageBox error={error} onClose={setModalShow} /> : null}
-    </div>
+      )}
+    </UserForm>
   );
 }
