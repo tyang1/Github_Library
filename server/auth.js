@@ -39,6 +39,9 @@ function logIn(req, res, next) {
     // Load hash from your password DB.
     try {
       repo.getPwdHash(email).then((response) => {
+        if (!response) {
+          return res.status(500).send({ message: "Server error" });
+        }
         const { password } = response;
         if (!password) {
           return res
