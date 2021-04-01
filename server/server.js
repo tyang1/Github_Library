@@ -12,15 +12,15 @@ const start = (options) => {
     app.use(bodyParser.json());
     app.use(cookieParser());
     app.use(cors());
-    app.use("/", express.static("dist"));
+    app.use("/", express.static("build"));
     app.get("/home", authenticateToken, (req, res) => {
       res.json(req.user);
     });
     app.get("/articles", (req, res, next) => {
       getAllArticles(req, res, next)(repo);
     });
-    app.use("/signup", express.static("dist"));
-    app.use("/login", express.static("dist"));
+    app.use("/signup", express.static("build"));
+    app.use("/login", express.static("build"));
     app.post("/signup", (req, res, next) => {
       signUp(req, res, next)(repo);
     });

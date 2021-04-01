@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Button from "react-bootstrap/Button";
-import UserForm from "../components/UserForm.jsx";
+import UserForm from "../views/UserForm.jsx";
 import "bootstrap/dist/css/bootstrap.css";
 
 export default function Signup(props) {

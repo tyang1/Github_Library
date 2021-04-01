@@ -2,7 +2,7 @@ const fetch = require("cross-fetch");
 
 export function signUp(data) {
   return new Promise((resolve, reject) => {
-    fetch(`${process.env.API_URL}/signup`, {
+    fetch(`/signup`, {
       method: "POST",
       body: JSON.stringify(data),
       headers: {
@@ -21,7 +21,7 @@ export function signUp(data) {
 
 export function logIn(data) {
   return new Promise((resolve, reject) => {
-    fetch(`${process.env.API_URL}/login`, {
+    fetch(`/login`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
