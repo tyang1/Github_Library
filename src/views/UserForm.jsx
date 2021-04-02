@@ -22,7 +22,11 @@ export default function UserForm(props) {
           handleSubmit({ event, email, password, setModalShow })
         }
       >
-        <Form.Group size="lg" controlId="formBasicEmail">
+        <Form.Group
+          style={{ flexDirection: "column" }}
+          size="lg"
+          controlId="formBasicEmail"
+        >
           <Form.Label>Email</Form.Label>
           <Form.Control
             autoFocus
@@ -31,7 +35,11 @@ export default function UserForm(props) {
             onChange={(e) => setEmail(e.target.value)}
           />
         </Form.Group>
-        <Form.Group size="lg" controlId="formBasicPassword">
+        <Form.Group
+          style={{ flexDirection: "column" }}
+          size="lg"
+          controlId="formBasicPassword"
+        >
           <Form.Label>Password</Form.Label>
           <Form.Control
             type="password"
