@@ -13,7 +13,7 @@ import Nav from "react-bootstrap/Nav";
 import mock from "../state/mock.js";
 import { getAllArticles } from "../actions/API.js";
 import { useQuery, QueryClient, QueryClientProvider } from "react-query";
-import Articles from "../components/ArticleViews/Articles.jsx";
+import Articles from "../views/ArticleViews/Articles.jsx";
 import "bootstrap/dist/css/bootstrap.css";
 
 const queryClient = new QueryClient();
@@ -24,7 +24,7 @@ function useArticles() {
   });
 }
 
-export default function Home() {
+export default function UserHome() {
   const [articles, setArticles] = useState([]);
   let { url } = useRouteMatch();
 
