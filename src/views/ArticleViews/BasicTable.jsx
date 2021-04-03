@@ -1,36 +1,30 @@
 import React from "react";
 import { MDBTable, MDBTableBody, MDBTableHead } from "mdbreact";
 
-const BasicTable = () => {
+const BasicTable = (props) => {
+  const { columns, data } = props;
   return (
     <MDBTable striped style={{ backgroundColor: "white" }}>
       <MDBTableHead color="primary-color">
         <tr>
-          <th>#</th>
-          <th>First</th>
-          <th>Last</th>
-          <th>Handle</th>
+          {columns.map((col) => (
+            <th>{col.text}</th>
+          ))}
         </tr>
       </MDBTableHead>
       <MDBTableBody>
-        <tr>
-          <td>1</td>
-          <td>Mark</td>
-          <td>Otto</td>
-          <td>@mdo</td>
-        </tr>
-        <tr>
-          <td>2</td>
-          <td>Jacob</td>
-          <td>Thornton</td>
-          <td>@fat</td>
-        </tr>
-        <tr>
-          <td>3</td>
-          <td>Larry</td>
-          <td>the Bird</td>
-          <td>@twitter</td>
-        </tr>
+        {data.map((article) => (
+          <tr>
+            <td>{article.title}</td>
+            <td>{article.link}</td>
+            <td>{article.tags}</td>
+            <td>
+              {article.notes.map((note) => (
+                <p>{note}</p>
+              ))}
+            </td>
+          </tr>
+        ))}
       </MDBTableBody>
     </MDBTable>
   );

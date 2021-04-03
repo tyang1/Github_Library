@@ -49,6 +49,10 @@ export default function Articles(props) {
       dataField: "notes",
       text: "Notes",
     },
+    {
+      dataField: "actions",
+      text: "Actions",
+    },
   ];
 
   const addArticle = (article) => {
@@ -70,15 +74,30 @@ export default function Articles(props) {
               <h2>Search By Article Name:</h2>
               <SearchBar {...props.searchProps} />
               <hr />
-              <Button
-                onClick={() => {
-                  //use the coming new state for the modal edit
-                  addArticle([]);
-                }}
-              >
-                add more articles
-              </Button>
-              <BasicTable />
+              <div style={{ marginBottom: "10px" }}>
+                <Button
+                  onClick={() => {
+                    //use the coming new state for the modal edit
+                    addArticle([
+                      {
+                        id: 0,
+                        title:
+                          "How State Management works? Dead simple SM in Vanilla JavaScript",
+                        link:
+                          "https://dev.to/vijaypushkin/dead-simple-state-management-in-vanilla-javascript-24p0?utm_source=digest_mailer&utm_medium=email&utm_campaign=digest_email",
+                        tags: [],
+                        notes: [
+                          "https://github.com/tyang1/Github_Library",
+                          "https://github.com/tyang1/Prospect_Emails_OSHackathon",
+                        ],
+                      },
+                    ]);
+                  }}
+                >
+                  add more articles
+                </Button>
+              </div>
+              <BasicTable data={data} columns={columns} />
             </div>
           )}
         </ToolkitProvider>
