@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import BootstrapTable from "react-bootstrap-table-next";
 import Button from "react-bootstrap/Button";
+import BasicTable from "./BasicTable.jsx";
 import ToolkitProvider, { Search } from "react-bootstrap-table2-toolkit";
 import {
   useQuery,
@@ -18,38 +19,37 @@ export default function Articles(props) {
   const { status, data, error, isFetching } = useArticles();
 
   const { SearchBar } = Search;
-  const columnStyle = {
-    color: "white",
-  };
+
+  // const columnStyle = {
+  //   color: "white",
+  //   border: "white",
+  // };
+
+  // const rowStyle = {
+  //   overflowWrap: "break-word",
+  //   border: "whilte",
+  //   backgroundColor: "white",
+  // };
 
   const columns = [
     {
       dataField: "article",
       text: "Article Name",
       sort: true,
-      headerStyle: columnStyle,
     },
     {
       dataField: "category",
       text: "Categories",
-      headerStyle: columnStyle,
     },
     {
       dataField: "link",
       text: "Link",
-      headerStyle: columnStyle,
     },
     {
       dataField: "notes",
       text: "Notes",
-      headerStyle: columnStyle,
     },
   ];
-  const rowStyle = {
-    border: "solid 2px #ccc",
-    overflowWrap: "break-word",
-    color: "white",
-  };
 
   const addArticle = (article) => {
     if (!article || !article.length) return;
@@ -78,7 +78,7 @@ export default function Articles(props) {
               >
                 add more articles
               </Button>
-              <BootstrapTable {...props.baseProps} rowStyle={rowStyle} />
+              <BasicTable />
             </div>
           )}
         </ToolkitProvider>
