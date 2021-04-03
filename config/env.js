@@ -96,7 +96,6 @@ function getClientEnvironment(publicUrl) {
       return env;
     }, {}),
   };
-  console.log("stringifield", stringified);
   return { raw, stringified };
 }
 

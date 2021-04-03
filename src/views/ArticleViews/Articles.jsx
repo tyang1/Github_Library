@@ -18,28 +18,37 @@ export default function Articles(props) {
   const { status, data, error, isFetching } = useArticles();
 
   const { SearchBar } = Search;
+  const columnStyle = {
+    color: "white",
+  };
+
   const columns = [
     {
       dataField: "article",
       text: "Article Name",
       sort: true,
+      headerStyle: columnStyle,
     },
     {
       dataField: "category",
       text: "Categories",
+      headerStyle: columnStyle,
     },
     {
       dataField: "link",
       text: "Link",
+      headerStyle: columnStyle,
     },
     {
       dataField: "notes",
       text: "Notes",
+      headerStyle: columnStyle,
     },
   ];
   const rowStyle = {
     border: "solid 2px #ccc",
     overflowWrap: "break-word",
+    color: "white",
   };
 
   const addArticle = (article) => {

@@ -19,6 +19,8 @@ import LayoutDefault from "./layouts/LayoutDefault";
 // Views
 import Home from "./views/Home";
 
+import UserHome from "./containers/UserHome.jsx";
+
 // Initialize Google Analytics
 ReactGA.initialize(process.env.REACT_APP_GA_CODE);
 
@@ -54,7 +56,7 @@ const App = () => {
                 <Signup submitHandler={signUp} setRedirect={setRedirect} />
               </Route>
               <Route path="/home">
-                <Home />
+                <UserHome />
               </Route>
             </Switch>
           </BrowserRouter>
@@ -78,7 +80,7 @@ const App = () => {
                   submitHandler={logIn}
                   setRedirect={setRedirect}
                 />
-                <AppRoute exact path="/home" component={Home} />
+                <AppRoute exact path="/home" component={UserHome} />
               </Switch>
             )}
           />
