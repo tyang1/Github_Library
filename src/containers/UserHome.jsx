@@ -39,8 +39,10 @@ export default function UserHome() {
   return (
     <div className="App container py-3">
       <QueryClientProvider client={queryClient}>
-        <Navbar bg="light" expand="lg">
-          <Navbar.Brand href="/home">Home</Navbar.Brand>
+        <Navbar expand="lg">
+          <Navbar.Brand href="/home" style={{ color: "grey" }}>
+            Home
+          </Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="mr-auto">
