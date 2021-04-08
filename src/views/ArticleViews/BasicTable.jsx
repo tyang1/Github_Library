@@ -13,18 +13,21 @@ const BasicTable = (props) => {
         </tr>
       </MDBTableHead>
       <MDBTableBody>
-        {data.map((article) => (
-          <tr>
-            <td>{article.title}</td>
-            <td>{article.link}</td>
-            <td>{article.tags}</td>
-            <td>
-              {article.notes.map((note) => (
-                <p>{note}</p>
-              ))}
-            </td>
-          </tr>
-        ))}
+        {data &&
+          data.map((article) => (
+            <tr>
+              {columns.map((column) =>
+                !column.hasMultiple ? (
+                  <td>{article[column.dataField]}</td>
+                ) : (
+                  <td>
+                    {typeof article[column.dataField] == "object" &&
+                      article.notes.map((note) => <p>{note}</p>)}
+                  </td>
+                )
+              )}
+            </tr>
+          ))}
       </MDBTableBody>
     </MDBTable>
   );

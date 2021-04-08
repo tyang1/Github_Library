@@ -20,17 +20,6 @@ export default function Articles(props) {
 
   const { SearchBar } = Search;
 
-  // const columnStyle = {
-  //   color: "white",
-  //   border: "white",
-  // };
-
-  // const rowStyle = {
-  //   overflowWrap: "break-word",
-  //   border: "whilte",
-  //   backgroundColor: "white",
-  // };
-
   const columns = [
     {
       dataField: "article",
@@ -48,6 +37,7 @@ export default function Articles(props) {
     {
       dataField: "notes",
       text: "Notes",
+      hasMultiple: true,
     },
     {
       dataField: "actions",
@@ -59,6 +49,7 @@ export default function Articles(props) {
     if (!article || !article.length) return;
     let list = [...articles];
     list.push(article);
+    console.log("addArticle", list);
     setArticles(list);
   };
   return (
@@ -76,8 +67,9 @@ export default function Articles(props) {
               <hr />
               <div style={{ marginBottom: "10px" }}>
                 <Button
-                  onClick={() => {
+                  onClick={(e) => {
                     //use the coming new state for the modal edit
+                    e.preventDefault();
                     addArticle([
                       {
                         id: 0,
