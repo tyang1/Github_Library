@@ -14,6 +14,20 @@ import {
 import "bootstrap/dist/css/bootstrap.css";
 import "react-bootstrap-table-next/dist/react-bootstrap-table2.min.css";
 
+const formStyle = {
+  display: "flex",
+  flexDirection: "row",
+  flexWrap: "wrap",
+  width: "100%",
+};
+
+const formGroupStyle = {
+  display: "flex",
+  flexDirection: "column",
+  flexBasis: "100%",
+  flex: "1",
+};
+
 export default function Articles(props) {
   const { articles, setArticles, useArticles } = props;
   const queryClient = useQueryClient();
@@ -98,9 +112,26 @@ function AddArticleBlock(props) {
   };
   return (
     <Form>
-      <Form.Group controlId="exampleForm.ControlInput1">
+      <Form.Group
+        style={{ ...formGroupStyle }}
+        controlId="exampleForm.ControlInput1"
+      >
         <Form.Label>Article Title</Form.Label>
         <Form.Control placeholder="React Fun.." />
+        {/* </Form.Group> */}
+        {/* <Form.Group
+        style={{ ...formGroupStyle }}
+        controlId="exampleForm.ControlInput2"
+      > */}
+        <Form.Label>Article Link</Form.Label>
+        <Form.Control placeholder="www.medium.com" />
+        {/* </Form.Group> */}
+        {/* <Form.Group
+        style={{ ...formGroupStyle }}
+        controlId="exampleForm.ControlInput3"
+      > */}
+        <Form.Label>Article Tags</Form.Label>
+        <Form.Control placeholder="www.medium.com" />
       </Form.Group>
       <Button
         onClick={(e) => {
