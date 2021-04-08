@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import BootstrapTable from "react-bootstrap-table-next";
 import Button from "react-bootstrap/Button";
+import BasicTable from "./BasicTable.jsx";
 import ToolkitProvider, { Search } from "react-bootstrap-table2-toolkit";
 import {
   useQuery,
@@ -18,43 +19,37 @@ export default function Articles(props) {
   const { status, data, error, isFetching } = useArticles();
 
   const { SearchBar } = Search;
-  const columnStyle = {
-    color: "white",
-  };
 
   const columns = [
     {
       dataField: "article",
       text: "Article Name",
       sort: true,
-      headerStyle: columnStyle,
     },
     {
       dataField: "category",
       text: "Categories",
-      headerStyle: columnStyle,
     },
     {
       dataField: "link",
       text: "Link",
-      headerStyle: columnStyle,
     },
     {
       dataField: "notes",
       text: "Notes",
-      headerStyle: columnStyle,
+      hasMultiple: true,
+    },
+    {
+      dataField: "actions",
+      text: "Actions",
     },
   ];
-  const rowStyle = {
-    border: "solid 2px #ccc",
-    overflowWrap: "break-word",
-    color: "white",
-  };
 
   const addArticle = (article) => {
     if (!article || !article.length) return;
     let list = [...articles];
     list.push(article);
+    console.log("addArticle", list);
     setArticles(list);
   };
   return (
@@ -70,15 +65,31 @@ export default function Articles(props) {
               <h2>Search By Article Name:</h2>
               <SearchBar {...props.searchProps} />
               <hr />
-              <Button
-                onClick={() => {
-                  //use the coming new state for the modal edit
-                  addArticle([]);
-                }}
-              >
-                add more articles
-              </Button>
-              <BootstrapTable {...props.baseProps} rowStyle={rowStyle} />
+              <div style={{ marginBottom: "10px" }}>
+                <Button
+                  onClick={(e) => {
+                    //use the coming new state for the modal edit
+                    e.preventDefault();
+                    addArticle([
+                      {
+                        id: 0,
+                        title:
+                          "How State Management works? Dead simple SM in Vanilla JavaScript",
+                        link:
+                          "https://dev.to/vijaypushkin/dead-simple-state-management-in-vanilla-javascript-24p0?utm_source=digest_mailer&utm_medium=email&utm_campaign=digest_email",
+                        tags: [],
+                        notes: [
+                          "https://github.com/tyang1/Github_Library",
+                          "https://github.com/tyang1/Prospect_Emails_OSHackathon",
+                        ],
+                      },
+                    ]);
+                  }}
+                >
+                  add more articles
+                </Button>
+              </div>
+              <BasicTable data={data} columns={columns} />
             </div>
           )}
         </ToolkitProvider>
