@@ -85,7 +85,7 @@
   },
   "scripts": {
     "start": "node scripts/start.js",
-    "build": "node scripts/build.js",
+    "build": "node scripts/build.js ",
     "test": "node scripts/test.js",
     "dev": "NODE_ENV=development nodemon -r dotenv/config server/index.js"
   },
@@ -104,7 +104,9 @@
       "last 1 safari version"
     ]
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "webpack-cli": "^4.6.0"
+  },
   "jest": {
     "roots": [
       "<rootDir>/src"

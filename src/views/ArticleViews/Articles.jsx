@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Button from "react-bootstrap/Button";
+import Form from "react-bootstrap/Form";
 import BasicTable from "./BasicTable.jsx";
 import MyVerticallyCenteredModal from "../ArticleViews/MyVerticallyCenteredModal.jsx";
 import ToolkitProvider, { Search } from "react-bootstrap-table2-toolkit";
@@ -12,6 +13,20 @@ import {
 
 import "bootstrap/dist/css/bootstrap.css";
 import "react-bootstrap-table-next/dist/react-bootstrap-table2.min.css";
+
+// const formStyle = {
+//   display: "flex",
+//   flexDirection: "row",
+//   flexWrap: "wrap",
+//   width: "100%",
+// };
+
+const formGroupStyle = {
+  display: "flex",
+  flexDirection: "column",
+  flexBasis: "100%",
+  flex: "1",
+};
 
 export default function Articles(props) {
   const { articles, setArticles, useArticles } = props;
@@ -46,13 +61,6 @@ export default function Articles(props) {
     },
   ];
 
-  const addArticle = (article) => {
-    if (!article || !article.length) return;
-    let list = [...articles];
-    list.push(article);
-    console.log("addArticle", list);
-    setArticles(list);
-  };
   return (
     <>
       {status === "loading" ? (
@@ -69,29 +77,15 @@ export default function Articles(props) {
               <MyVerticallyCenteredModal
                 show={modalShow}
                 onHide={() => setModalShow(false)}
+                modalHeading={"adding new article"}
+                withModalFooter={false}
+                withModalTitle={false}
+                withModalHeader={true}
                 modalBody={
-                  <Button
-                    onClick={(e) => {
-                      //use the coming new state for the modal edit
-                      e.preventDefault();
-                      addArticle([
-                        {
-                          id: 0,
-                          title:
-                            "How State Management works? Dead simple SM in Vanilla JavaScript",
-                          link:
-                            "https://dev.to/vijaypushkin/dead-simple-state-management-in-vanilla-javascript-24p0?utm_source=digest_mailer&utm_medium=email&utm_campaign=digest_email",
-                          tags: [],
-                          notes: [
-                            "https://github.com/tyang1/Github_Library",
-                            "https://github.com/tyang1/Prospect_Emails_OSHackathon",
-                          ],
-                        },
-                      ]);
-                    }}
-                  >
-                    Save
-                  </Button>
+                  <AddArticleBlock
+                    articles={articles}
+                    setArticles={setArticles}
+                  />
                 }
               />
               <div style={{ marginBottom: "10px" }}>
@@ -105,5 +99,55 @@ export default function Articles(props) {
         </ToolkitProvider>
       )}
     </>
+  );
+}
+
+function AddArticleBlock(props) {
+  const { articles, setArticles } = props;
+  const addArticle = (article) => {
+    if (!article || !article.length) return;
+    let list = [...articles];
+    list.push(article);
+    console.log("addArticle", list);
+    setArticles(list);
+  };
+  return (
+    <Form>
+      <Form.Group
+        style={{ ...formGroupStyle }}
+        controlId="exampleForm.ControlInput1"
+      >
+        <Form.Label>Article Title</Form.Label>
+        <Form.Control placeholder="React Fun.." />
+        <Form.Label>Article Link</Form.Label>
+        <Form.Control placeholder="www.medium.com" />
+        <Form.Label>Article Tags</Form.Label>
+        <Form.Control placeholder="www.medium.com" />
+        <Form.Label>Example textarea</Form.Label>
+        <Form.Control as="textarea" rows={3} />
+      </Form.Group>
+      <Button
+        onClick={(e) => {
+          //use the coming new state for the modal edit
+          e.preventDefault();
+          addArticle([
+            {
+              id: 0,
+              title:
+                "How State Management works? Dead simple SM in Vanilla JavaScript",
+              link:
+                "https://dev.to/vijaypushkin/dead-simple-state-management-in-vanilla-javascript-24p0?utm_source=digest_mailer&utm_medium=email&utm_campaign=digest_email",
+              tags: [],
+              notes: [
+                "https://github.com/tyang1/Github_Library",
+                "https://github.com/tyang1/Prospect_Emails_OSHackathon",
+              ],
+            },
+          ]);
+        }}
+      >
+        Save
+      </Button>
+    </Form>
   );
 }

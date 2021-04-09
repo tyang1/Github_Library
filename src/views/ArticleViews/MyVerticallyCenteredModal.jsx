@@ -1,26 +1,35 @@
 import React from "react";
 import Modal from "react-bootstrap/Modal";
-import Button from "react-bootstrap/Button";
 import "bootstrap/dist/css/bootstrap.css";
+import "./MyVerticallyCenteredModal.scss";
 
 export default function MyVerticallyCenteredModal(props) {
-  const { modalBody } = props;
+  const {
+    modalBody,
+    modalHeading,
+    withModalFooter = false,
+    withModalHeader = false,
+    withModalTitle = false,
+  } = props;
   return (
     <Modal
       {...props}
       size="lg"
       aria-labelledby="contained-modal-title-vcenter"
+      backdropClassName="modal-backdrop fixed-zIndex-modal-backdrop"
       centered
     >
-      <Modal.Header closeButton>
-        <Modal.Title id="contained-modal-title-vcenter">
-          Modal heading
-        </Modal.Title>
-      </Modal.Header>
+      {withModalHeader ? (
+        <Modal.Header closeButton>
+          {withModalTitle ? (
+            <Modal.Title id="contained-modal-title-vcenter">
+              {modalHeading}
+            </Modal.Title>
+          ) : null}
+        </Modal.Header>
+      ) : null}
       <Modal.Body>{modalBody}</Modal.Body>
-      <Modal.Footer>
-        <Button onClick={props.onHide}>Close</Button>
-      </Modal.Footer>
+      {withModalFooter ? <Modal.Footer></Modal.Footer> : null}
     </Modal>
   );
 }
