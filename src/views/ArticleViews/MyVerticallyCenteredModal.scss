@@ -1,0 +1,17 @@
+.modal-backdrop.fixed-zIndex-modal-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: black;
+  z-index: 0;
+
+  // Fade for backdrop
+  &.fade {
+    opacity: 0;
+  }
+  &.show {
+    opacity: 0.5;
+  }
+}
