@@ -11,6 +11,7 @@ function authenticateToken(req, res, next) {
   // const authHeader = req.headers["authorization"];
   // const token = authHeader && authHeader.split(" ")[1];
   const token = req.cookies.jwt_token;
+  console.log("req.cookie", req.cookies);
   if (token == null) return res.sendStatus(401); // if there isn't any token
   jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
     console.log(err);
@@ -89,7 +90,6 @@ function addCookie(res, token) {
     .cookie("jwt_token", token, {
       expires: new Date(Date.now() + 16 * 3600000),
       httpOnly: true,
-      domain: `http://${process.env.DOTENV_CONFIG_HOST}:${process.env.DOTENV_CONFIG_PORT}`,
     })
     .json(token);
 }
