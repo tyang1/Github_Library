@@ -89,7 +89,6 @@ function addCookie(res, token) {
     .cookie("jwt_token", token, {
       expires: new Date(Date.now() + 16 * 3600000),
       httpOnly: true,
-      domain: `http://${process.env.DOTENV_CONFIG_HOST}:${process.env.DOTENV_CONFIG_PORT}`,
     })
     .json(token);
 }

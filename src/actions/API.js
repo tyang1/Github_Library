@@ -7,7 +7,6 @@ export function signUp(data) {
       body: JSON.stringify(data),
       headers: {
         "Content-Type": "application/json",
-        "Content-Type": "text/html",
       },
     })
       .then((res) => res.json())
