@@ -64,12 +64,12 @@ export function addArticle(article) {
 
 export function getAllArticles() {
   return new Promise((resolve, reject) => {
-    fetch(`${process.env.API_URL}/articles`, {
+    fetch(`${process.env.API_URL}/server/articles`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        "Content-Type": "text/html",
       },
+      credentials: "same-origin",
     })
       .then((response) => {
         return response.json();
