@@ -47,16 +47,16 @@ export default function UserHome() {
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="mr-auto">
               <Nav.Link>
-                <Link to={`${url}/articles`}>Articles</Link>
+                <Link to={`/articles`}>Articles</Link>
               </Nav.Link>
               <Nav.Link>
-                <Link to={`${url}/subjects`}>Subjects</Link>
+                <Link to={`/subjects`}>Subjects</Link>
               </Nav.Link>
             </Nav>
           </Navbar.Collapse>
         </Navbar>
         <Switch>
-          <Route path={`${url}/articles`}>
+          <Route path={`/articles`}>
             <Articles
               useArticles={useArticles}
               articles={articles}

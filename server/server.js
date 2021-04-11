@@ -16,11 +16,11 @@ const start = (options) => {
     app.get("/home", authenticateToken, (req, res) => {
       res.json(req.user);
     });
-    app.get("/server/articles", authenticateToken, (req, res, next) => {
+    app.get("/articles", authenticateToken, (req, res, next) => {
       getAllArticles(req, res, next)(repo);
     });
-    app.get("/home/articles", authenticateToken, (req, res, next) => {
-      //would need skeleton page
+    app.get("/articles", authenticateToken, (req, res, next) => {
+      //would need to let the browser redirect!
     });
     app.use("/signup", express.static("build"));
     app.use("/login", express.static("build"));
