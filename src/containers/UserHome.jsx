@@ -26,7 +26,7 @@ function useArticles() {
 
 export default function UserHome() {
   const [articles, setArticles] = useState([]);
-  let { url } = useRouteMatch();
+  // let { url } = useRouteMatch();
 
   // const { isLoading, error, data } = useQuery("fetchArticles", () => {
   //   getAllArticles().then((response) => response);

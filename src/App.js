@@ -21,6 +21,8 @@ import Home from "./views/Home";
 
 import UserHome from "./containers/UserHome.jsx";
 
+import Articles from "./views/ArticleViews/Articles.jsx";
+
 // Initialize Google Analytics
 ReactGA.initialize(process.env.REACT_APP_GA_CODE);
 
@@ -57,6 +59,9 @@ const App = () => {
               </Route>
               <Route path="/home">
                 <UserHome />
+              </Route>
+              <Route path="/articles">
+                <Articles />
               </Route>
             </Switch>
           </BrowserRouter>
