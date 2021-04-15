@@ -51,18 +51,18 @@ const App = () => {
           <BrowserRouter>
             <Redirect to={redirect} />
             <Switch>
-              <Route path="/login">
-                <Login submitHandler={logIn} setRedirect={setRedirect} />
-              </Route>
               <Route path="/signup">
                 <Signup submitHandler={signUp} setRedirect={setRedirect} />
+              </Route>
+              <Route path="/login">
+                <Login submitHandler={logIn} setRedirect={setRedirect} />
               </Route>
               <Route path="/home">
                 <UserHome />
               </Route>
-              <Route path="/articles">
+              {/* <Route path="/articles">
                 <Articles />
-              </Route>
+              </Route> */}
             </Switch>
           </BrowserRouter>
         </>
@@ -83,6 +83,20 @@ const App = () => {
                   path="/login"
                   component={Login}
                   submitHandler={logIn}
+                  setRedirect={setRedirect}
+                />
+                <AppRoute
+                  exact
+                  path="/signup"
+                  component={Signup}
+                  submitHandler={signUp}
+                  setRedirect={setRedirect}
+                />
+                <AppRoute
+                  exact
+                  path="/home/articles"
+                  component={UserHome}
+                  // submitHandler={signUp}
                   setRedirect={setRedirect}
                 />
                 <AppRoute exact path="/home" component={UserHome} />

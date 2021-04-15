@@ -669,28 +669,3 @@ module.exports = function (webpackEnv) {
     performance: false,
   };
 };
-
-// const serverConfig = {
-//   mode: "development",
-//   entry: "./server/index.js",
-//   target: "node",
-//   externals: [nodeExternals()],
-//   loader: "babel-loader",
-//   // the loader which should be applied, it'll be resolved relative to the context
-//   options: {
-//     presets: ["es2015"],
-//   },
-//   output: {
-//     path: __dirname,
-//     filename: "server.js",
-//     publicPath: "/",
-//   },
-//   module: {
-//     rules: [{ test: /\.(js)$/, use: "babel-loader" }],
-//   },
-//   plugins: [
-//     new webpack.DefinePlugin({
-//       __isBrowser__: "false",
-//     }),
-//   ],
-// };
