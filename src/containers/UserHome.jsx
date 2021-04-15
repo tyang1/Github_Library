@@ -27,14 +27,8 @@ function useArticles() {
 export default function UserHome() {
   const [articles, setArticles] = useState([]);
   let { url } = useRouteMatch();
-
-  // const { isLoading, error, data } = useQuery("fetchArticles", () => {
-  //   getAllArticles().then((response) => response);
-  // });
-
-  // useEffect(() => {
-  //   setArticles(mock.articles);
-  // }, [mock]);
+  console.log("routeMathc", url);
+  //handling rerouting here
 
   return (
     <div className="App container py-3">
@@ -47,16 +41,16 @@ export default function UserHome() {
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="mr-auto">
               <Nav.Link>
-                <Link to={`/articles`}>Articles</Link>
+                <Link to={`${url}/articles`}>Articles</Link>
               </Nav.Link>
               <Nav.Link>
-                <Link to={`/subjects`}>Subjects</Link>
+                <Link to={`${url}/subjects`}>Subjects</Link>
               </Nav.Link>
             </Nav>
           </Navbar.Collapse>
         </Navbar>
         <Switch>
-          <Route path={`/articles`}>
+          <Route exact path={`${url}/articles/`}>
             <Articles
               useArticles={useArticles}
               articles={articles}

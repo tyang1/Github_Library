@@ -21,6 +21,8 @@ import Home from "./views/Home";
 
 import UserHome from "./containers/UserHome.jsx";
 
+import Articles from "./views/ArticleViews/Articles.jsx";
+
 // Initialize Google Analytics
 ReactGA.initialize(process.env.REACT_APP_GA_CODE);
 
@@ -49,15 +51,18 @@ const App = () => {
           <BrowserRouter>
             <Redirect to={redirect} />
             <Switch>
-              <Route path="/login">
-                <Login submitHandler={logIn} setRedirect={setRedirect} />
-              </Route>
               <Route path="/signup">
                 <Signup submitHandler={signUp} setRedirect={setRedirect} />
+              </Route>
+              <Route path="/login">
+                <Login submitHandler={logIn} setRedirect={setRedirect} />
               </Route>
               <Route path="/home">
                 <UserHome />
               </Route>
+              {/* <Route path="/articles">
+                <Articles />
+              </Route> */}
             </Switch>
           </BrowserRouter>
         </>
@@ -78,6 +83,20 @@ const App = () => {
                   path="/login"
                   component={Login}
                   submitHandler={logIn}
+                  setRedirect={setRedirect}
+                />
+                <AppRoute
+                  exact
+                  path="/signup"
+                  component={Signup}
+                  submitHandler={signUp}
+                  setRedirect={setRedirect}
+                />
+                <AppRoute
+                  exact
+                  path="/home/articles"
+                  component={UserHome}
+                  // submitHandler={signUp}
                   setRedirect={setRedirect}
                 />
                 <AppRoute exact path="/home" component={UserHome} />

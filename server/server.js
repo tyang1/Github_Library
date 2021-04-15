@@ -3,8 +3,12 @@ const express = require("express");
 const app = express();
 const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
+const path = require("path");
 const cors = require("cors");
 const { getAllArticles } = require("./articleController.js");
+// require("@babel/register")({
+//   presets: ["react"],
+// });
 
 const start = (options) => {
   return new Promise(async (resolve, reject) => {
@@ -16,14 +20,16 @@ const start = (options) => {
     app.get("/home", authenticateToken, (req, res) => {
       res.json(req.user);
     });
-    app.get("/articles", authenticateToken, (req, res, next) => {
+    app.get("/server/articles", authenticateToken, (req, res, next) => {
       getAllArticles(req, res, next)(repo);
     });
-    app.get("/articles", authenticateToken, (req, res, next) => {
+    app.use(
+      "/home/articles",
+      express.static("build")
       //would need to let the browser redirect!
-    });
-    app.use("/signup", express.static("build"));
+    );
     app.use("/login", express.static("build"));
+    app.use("/signup", express.static("build"));
     app.post("/signup", (req, res, next) => {
       signUp(req, res, next)(repo);
     });
