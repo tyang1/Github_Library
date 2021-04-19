@@ -94,7 +94,7 @@ const App = () => {
                 />
                 <AppRoute
                   exact
-                  path="/home/articles"
+                  path="/articles"
                   component={UserHome}
                   // submitHandler={signUp}
                   setRedirect={setRedirect}

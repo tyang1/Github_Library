@@ -10,7 +10,6 @@ import React, {
 import { Link, useRouteMatch, Switch, Route } from "react-router-dom";
 import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
-import mock from "../state/mock.js";
 import { getAllArticles } from "../actions/API.js";
 import { useQuery, QueryClient, QueryClientProvider } from "react-query";
 import Articles from "../views/ArticleViews/Articles.jsx";
@@ -41,16 +40,16 @@ export default function UserHome() {
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="mr-auto">
               <Nav.Link>
-                <Link to={`${url}/articles`}>Articles</Link>
+                <Link to={`/articles`}>Articles</Link>
               </Nav.Link>
               <Nav.Link>
-                <Link to={`${url}/subjects`}>Subjects</Link>
+                <Link to={`/subjects`}>Subjects</Link>
               </Nav.Link>
             </Nav>
           </Navbar.Collapse>
         </Navbar>
         <Switch>
-          <Route exact path={`${url}/articles/`}>
+          <Route exact path={`/articles`}>
             <Articles
               useArticles={useArticles}
               articles={articles}

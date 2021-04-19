@@ -20,11 +20,11 @@ const start = (options) => {
     app.get("/home", authenticateToken, (req, res) => {
       res.json(req.user);
     });
-    app.get("/server/articles", authenticateToken, (req, res, next) => {
+    app.get("/server/articles", (req, res, next) => {
       getAllArticles(req, res, next)(repo);
     });
     app.use(
-      "/home/articles",
+      "/articles",
       express.static("build")
       //would need to let the browser redirect!
     );
