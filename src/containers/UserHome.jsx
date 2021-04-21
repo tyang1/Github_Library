@@ -13,9 +13,6 @@ import Nav from "react-bootstrap/Nav";
 import { getAllArticles } from "../actions/API.js";
 import Articles from "../views/ArticleViews/Articles.jsx";
 import "bootstrap/dist/css/bootstrap.css";
-import { get } from "lodash";
-
-// const queryClient = new QueryClient();
 
 export default function UserHome() {
   const [articles, setArticles] = useState([]);
