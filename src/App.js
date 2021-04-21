@@ -64,7 +64,7 @@ const App = () => {
                 <UserHome />
               </Route>
               <Route path="/articles">
-                <Articles />
+                <UserHome />
               </Route>
             </Switch>
           </BrowserRouter>

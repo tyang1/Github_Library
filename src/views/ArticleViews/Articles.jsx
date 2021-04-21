@@ -18,7 +18,7 @@ const formGroupStyle = {
 
 export default function Articles(props) {
   const { articles, setArticles, getAllArticles } = props;
-  console.log("getAllarticles", getAllArticles);
+  //you would want to make sure that the getAllArticles gets updated
 
   const [modalShow, setModalShow] = useState(false);
 
