@@ -4,22 +4,10 @@ import Form from "react-bootstrap/Form";
 import BasicTable from "./BasicTable.jsx";
 import MyVerticallyCenteredModal from "../ArticleViews/MyVerticallyCenteredModal.jsx";
 import ToolkitProvider, { Search } from "react-bootstrap-table2-toolkit";
-import {
-  useQuery,
-  useQueryClient,
-  QueryClient,
-  QueryClientProvider,
-} from "react-query";
+import { useQuery } from "react-query";
 
 import "bootstrap/dist/css/bootstrap.css";
 import "react-bootstrap-table-next/dist/react-bootstrap-table2.min.css";
-
-// const formStyle = {
-//   display: "flex",
-//   flexDirection: "row",
-//   flexWrap: "wrap",
-//   width: "100%",
-// };
 
 const formGroupStyle = {
   display: "flex",
@@ -29,10 +17,17 @@ const formGroupStyle = {
 };
 
 export default function Articles(props) {
-  const { articles, setArticles, useArticles } = props;
-  const queryClient = useQueryClient();
-  const { status, data, error, isFetching } = useArticles();
+  const { articles, setArticles, getAllArticles } = props;
+  //you would want to make sure that the getAllArticles gets updated
+
   const [modalShow, setModalShow] = useState(false);
+
+  const { status, data, error, isFetching } = useQuery("fetchArticles", () => {
+    return getAllArticles().then((articles) => {
+      console.log("articles", articles);
+      return articles;
+    });
+  });
 
   const { SearchBar } = Search;
 
@@ -108,7 +103,6 @@ function AddArticleBlock(props) {
     if (!article || !article.length) return;
     let list = [...articles];
     list.push(article);
-    console.log("addArticle", list);
     setArticles(list);
   };
   return (

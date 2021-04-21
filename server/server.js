@@ -3,7 +3,6 @@ const express = require("express");
 const app = express();
 const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
-const path = require("path");
 const cors = require("cors");
 const { getAllArticles } = require("./articleController.js");
 // require("@babel/register")({
@@ -23,11 +22,7 @@ const start = (options) => {
     app.get("/server/articles", (req, res, next) => {
       getAllArticles(req, res, next)(repo);
     });
-    app.use(
-      "/articles",
-      express.static("build")
-      //would need to let the browser redirect!
-    );
+    app.use("/articles", express.static("build"));
     app.use("/login", express.static("build"));
     app.use("/signup", express.static("build"));
     app.post("/signup", (req, res, next) => {
