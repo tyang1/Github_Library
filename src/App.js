@@ -23,6 +23,8 @@ import UserHome from "./containers/UserHome.jsx";
 
 import Articles from "./views/ArticleViews/Articles.jsx";
 
+import { QueryClient, QueryClientProvider } from "react-query";
+
 // Initialize Google Analytics
 ReactGA.initialize(process.env.REACT_APP_GA_CODE);
 
@@ -30,6 +32,7 @@ const trackPage = (page) => {
   ReactGA.set({ page });
   ReactGA.pageview(page);
 };
+const queryClient = new QueryClient();
 
 const App = () => {
   let [redirect, setRedirect] = useState(null);
@@ -45,7 +48,7 @@ const App = () => {
   }, [location]);
 
   return (
-    <>
+    <QueryClientProvider client={queryClient}>
       {redirect ? (
         <>
           <BrowserRouter>
@@ -60,9 +63,9 @@ const App = () => {
               <Route path="/home">
                 <UserHome />
               </Route>
-              {/* <Route path="/articles">
+              <Route path="/articles">
                 <Articles />
-              </Route> */}
+              </Route>
             </Switch>
           </BrowserRouter>
         </>
@@ -105,7 +108,7 @@ const App = () => {
           />
         </>
       )}
-    </>
+    </QueryClientProvider>
   );
 };
 
