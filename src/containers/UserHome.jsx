@@ -15,8 +15,6 @@ import Articles from "../views/ArticleViews/Articles.jsx";
 import "bootstrap/dist/css/bootstrap.css";
 
 export default function UserHome() {
-  const [articles, setArticles] = useState([]);
-
   //handling rerouting here
 
   return (
@@ -39,11 +37,7 @@ export default function UserHome() {
       </Navbar>
       <Switch>
         <Route exact path={`/articles`}>
-          <Articles
-            getAllArticles={getAllArticles}
-            articles={articles}
-            setArticles={setArticles}
-          />
+          <Articles getAllArticles={getAllArticles} />
         </Route>
       </Switch>
     </div>

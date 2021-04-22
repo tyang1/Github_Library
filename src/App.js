@@ -18,11 +18,7 @@ import LayoutDefault from "./layouts/LayoutDefault";
 
 // Views
 import Home from "./views/Home";
-
 import UserHome from "./containers/UserHome.jsx";
-
-import Articles from "./views/ArticleViews/Articles.jsx";
-
 import { QueryClient, QueryClientProvider } from "react-query";
 
 // Initialize Google Analytics
