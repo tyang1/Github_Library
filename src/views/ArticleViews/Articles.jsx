@@ -17,17 +17,19 @@ const formGroupStyle = {
 };
 
 export default function Articles(props) {
-  const { articles, setArticles, getAllArticles } = props;
-  //you would want to make sure that the getAllArticles gets updated
+  const { getAllArticles, addArticle } = props;
+  const [articles, setArticles] = useState([]);
 
   const [modalShow, setModalShow] = useState(false);
 
   const { status, data, error, isFetching } = useQuery("fetchArticles", () => {
     return getAllArticles().then((articles) => {
-      console.log("articles", articles);
+      setArticles(articles);
       return articles;
     });
   });
+
+  //useEffect: if articles change, then refetch with useQuery
 
   const { SearchBar } = Search;
 
@@ -38,7 +40,7 @@ export default function Articles(props) {
       sort: true,
     },
     {
-      dataField: "category",
+      dataField: "categories",
       text: "Categories",
     },
     {
@@ -80,6 +82,7 @@ export default function Articles(props) {
                   <AddArticleBlock
                     articles={articles}
                     setArticles={setArticles}
+                    addArticle={addArticle}
                   />
                 }
               />
@@ -88,7 +91,7 @@ export default function Articles(props) {
                   add more articles
                 </Button>
               </div>
-              <BasicTable data={data} columns={columns} />
+              <BasicTable data={articles} columns={columns} />
             </div>
           )}
         </ToolkitProvider>
@@ -98,12 +101,15 @@ export default function Articles(props) {
 }
 
 function AddArticleBlock(props) {
-  const { articles, setArticles } = props;
-  const addArticle = (article) => {
-    if (!article || !article.length) return;
+  const { articles, setArticles, addArticle } = props;
+  const saveNewArticle = (article) => {
+    if (!article || !Object.keys(article).length) {
+      return;
+    }
     let list = [...articles];
     list.push(article);
-    setArticles(list);
+    addArticle(1, article);
+    // setArticles(list);
   };
   return (
     <Form>
@@ -124,20 +130,16 @@ function AddArticleBlock(props) {
         onClick={(e) => {
           //use the coming new state for the modal edit
           e.preventDefault();
-          addArticle([
-            {
-              id: 0,
-              title:
-                "How State Management works? Dead simple SM in Vanilla JavaScript",
-              link:
-                "https://dev.to/vijaypushkin/dead-simple-state-management-in-vanilla-javascript-24p0?utm_source=digest_mailer&utm_medium=email&utm_campaign=digest_email",
-              tags: [],
-              notes: [
-                "https://github.com/tyang1/Github_Library",
-                "https://github.com/tyang1/Prospect_Emails_OSHackathon",
-              ],
-            },
-          ]);
+          saveNewArticle({
+            id: 0,
+            article:
+              "How State Management works? Dead simple SM in Vanilla JavaScript",
+            link:
+              "https://dev.to/vijaypushkin/dead-simple-state-management-in-vanilla-javascript-24p0?utm_source=digest_mailer&utm_medium=email&utm_campaign=digest_email",
+            categories: "react",
+            notes:
+              "https://github.com/tyang1/Github_Library, https://github.com/tyang1/Prospect_Emails_OSHackathon",
+          });
         }}
       >
         Save

@@ -10,16 +10,11 @@ import React, {
 import { Link, Switch, Route } from "react-router-dom";
 import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
-import { getAllArticles } from "../actions/API.js";
+import { getAllArticles, addArticle } from "../actions/API.js";
 import Articles from "../views/ArticleViews/Articles.jsx";
 import "bootstrap/dist/css/bootstrap.css";
-import { get } from "lodash";
-
-// const queryClient = new QueryClient();
 
 export default function UserHome() {
-  const [articles, setArticles] = useState([]);
-
   //handling rerouting here
 
   return (
@@ -42,11 +37,7 @@ export default function UserHome() {
       </Navbar>
       <Switch>
         <Route exact path={`/articles`}>
-          <Articles
-            getAllArticles={getAllArticles}
-            articles={articles}
-            setArticles={setArticles}
-          />
+          <Articles getAllArticles={getAllArticles} addArticle={addArticle} />
         </Route>
       </Switch>
     </div>

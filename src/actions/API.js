@@ -43,15 +43,15 @@ export function logIn(data) {
   });
 }
 
-export function addArticle(article) {
+export function addArticle(userId, article) {
   return new Promise((resolve, reject) => {
-    fetch(`${process.env.API_URL}/article`, {
+    fetch(`${process.env.API_URL}/server/articles`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
         "Access-Control-Allow-Origin": "*",
       },
-      body: JSON.stringify(article),
+      body: JSON.stringify({ article: article, userId: userId }),
     })
       .then((article) => {
         resolve(article);

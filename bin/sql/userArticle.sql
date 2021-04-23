@@ -1,4 +1,4 @@
-CREATE TABLE userArticle(
+CREATE TABLE userarticle(
     id                          SERIAL PRIMARY KEY,
     "userId"                    INTEGER,
     "articleId"                 INTEGER,

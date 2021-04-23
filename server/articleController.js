@@ -17,6 +17,20 @@ function getAllArticles(req, res, next) {
   };
 }
 
+function addArticle(req, res, next) {
+  const { userId, article } = req.body;
+  return (repo) => {
+    try {
+      repo.addArticle(userId, article).then((userArticle) => {
+        return res.json(userArticle);
+      });
+    } catch (err) {
+      res.status(400).send({ message: err });
+    }
+  };
+}
+
 module.exports = {
   getAllArticles,
+  addArticle,
 };

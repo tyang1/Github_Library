@@ -4,10 +4,7 @@ const app = express();
 const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 const cors = require("cors");
-const { getAllArticles } = require("./articleController.js");
-// require("@babel/register")({
-//   presets: ["react"],
-// });
+const { getAllArticles, addArticle } = require("./articleController.js");
 
 const start = (options) => {
   return new Promise(async (resolve, reject) => {
@@ -23,11 +20,14 @@ const start = (options) => {
       getAllArticles(req, res, next)(repo);
     });
     app.use("/articles", express.static("build"));
-    app.use("/login", express.static("build"));
+    app.post("/server/articles", (req, res, next) => addArticle(req, res, next)(repo));
+
     app.use("/signup", express.static("build"));
     app.post("/signup", (req, res, next) => {
       signUp(req, res, next)(repo);
     });
+
+    app.use("/login", express.static("build"));
     app.post("/login", (req, res, next) => {
       logIn(req, res, next)(repo);
     });

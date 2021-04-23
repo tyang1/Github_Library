@@ -3,6 +3,7 @@ import { MDBTable, MDBTableBody, MDBTableHead } from "mdbreact";
 
 const BasicTable = (props) => {
   const { columns, data } = props;
+  console.log("basictable", data);
   return (
     <MDBTable striped style={{ backgroundColor: "white" }}>
       <MDBTableHead color="primary-color">
