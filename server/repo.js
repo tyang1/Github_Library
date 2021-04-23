@@ -29,6 +29,7 @@ const repository = (db) => {
   };
 
   const getAllArticles = () => {
+    //TODO: refactors logic to collect articleIds and get articles
     return new Promise((resolve, reject) => {
       db.query("SELECT * FROM article", (error, response) => {
         if (error) reject(error);
@@ -37,10 +38,55 @@ const repository = (db) => {
     });
   };
 
+  const addArticle = (userId, articleInfo) => {
+    const { category, article, link, notes } = articleInfo;
+    return new Promise((resolve, reject) => {
+      db.query(
+        "INSERT INTO article(category, article, link, notes) VALUES($1, $2, $3, $4) RETURNING id",
+        [category, article, link, notes],
+        (error, response) => {
+          if (error) reject(error);
+          resolve(response.rows[0].id);
+        }
+      );
+    })
+      .then((articleId) => {
+        return new Promise((resolve, reject) => {
+          db.query(
+            'INSERT INTO userarticle("userId", "articleId") VALUES($1, $2) RETURNING "articleId"',
+            [userId, articleId],
+            (error, response) => {
+              if (error) throw new Error(error);
+              // console.log("one more time", response.rows[0].articleId);
+              resolve(response.rows[0].articleId);
+            }
+          );
+        });
+      })
+      .then(
+        async (articleId) => {
+          console.log("articleId", articleId);
+          db.query(
+            "SELECT * FROM article WHERE article.id = $1",
+            [articleId],
+            (error, response) => {
+              if (error) throw new Error(error);
+              console.log("article finally", response);
+              return response;
+            }
+          );
+        },
+        (err) => {
+          throw new Error(err);
+        }
+      );
+  };
+
   return Object.create({
     saveUser,
     getPwdHash,
     getAllArticles,
+    addArticle,
   });
 };
 

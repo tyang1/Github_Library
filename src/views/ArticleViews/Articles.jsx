@@ -17,7 +17,7 @@ const formGroupStyle = {
 };
 
 export default function Articles(props) {
-  const { getAllArticles } = props;
+  const { getAllArticles, addArticle } = props;
   const [articles, setArticles] = useState([]);
 
   const [modalShow, setModalShow] = useState(false);
@@ -82,6 +82,7 @@ export default function Articles(props) {
                   <AddArticleBlock
                     articles={articles}
                     setArticles={setArticles}
+                    addArticle={addArticle}
                   />
                 }
               />
@@ -100,20 +101,15 @@ export default function Articles(props) {
 }
 
 function AddArticleBlock(props) {
-  const { articles, setArticles } = props;
-  const addArticle = (article) => {
+  const { articles, setArticles, addArticle } = props;
+  const saveNewArticle = (article) => {
     if (!article || !Object.keys(article).length) {
       return;
     }
-    console.log(
-      "inside AddArticleBlock",
-      !article,
-      !Object.keys(article).length
-    );
     let list = [...articles];
     list.push(article);
-    console.log("addArticle", list);
-    setArticles(list);
+    addArticle(1, article);
+    // setArticles(list);
   };
   return (
     <Form>
@@ -134,17 +130,15 @@ function AddArticleBlock(props) {
         onClick={(e) => {
           //use the coming new state for the modal edit
           e.preventDefault();
-          addArticle({
+          saveNewArticle({
             id: 0,
             article:
               "How State Management works? Dead simple SM in Vanilla JavaScript",
             link:
               "https://dev.to/vijaypushkin/dead-simple-state-management-in-vanilla-javascript-24p0?utm_source=digest_mailer&utm_medium=email&utm_campaign=digest_email",
-            categories: [],
-            notes: [
-              "https://github.com/tyang1/Github_Library",
-              "https://github.com/tyang1/Prospect_Emails_OSHackathon",
-            ],
+            categories: "react",
+            notes:
+              "https://github.com/tyang1/Github_Library, https://github.com/tyang1/Prospect_Emails_OSHackathon",
           });
         }}
       >
