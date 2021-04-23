@@ -57,29 +57,23 @@ const repository = (db) => {
             [userId, articleId],
             (error, response) => {
               if (error) throw new Error(error);
-              // console.log("one more time", response.rows[0].articleId);
               resolve(response.rows[0].articleId);
             }
           );
         });
       })
-      .then(
-        async (articleId) => {
-          console.log("articleId", articleId);
+      .then(async (articleId) => {
+        return new Promise((resolve, reject) => {
           db.query(
             "SELECT * FROM article WHERE article.id = $1",
             [articleId],
             (error, response) => {
               if (error) throw new Error(error);
-              console.log("article finally", response);
-              return response;
+              resolve(response.rows[0]);
             }
           );
-        },
-        (err) => {
-          throw new Error(err);
-        }
-      );
+        });
+      });
   };
 
   return Object.create({
