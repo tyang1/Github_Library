@@ -11,7 +11,7 @@ import "./assets/scss/style.scss";
 
 const history = createBrowserHistory();
 
-ReactDOM.hydrate(
+ReactDOM.render(
   <Router history={history}>
     <App />
   </Router>,

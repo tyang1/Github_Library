@@ -17,19 +17,18 @@ const formGroupStyle = {
 };
 
 export default function Articles(props) {
-  const { getAllArticles, addArticle } = props;
+  const { getAllArticles, addArticle, getUserId, handleAllArticles } = props;
   const [articles, setArticles] = useState([]);
 
   const [modalShow, setModalShow] = useState(false);
 
-  const { status, data, error, isFetching } = useQuery("fetchArticles", () => {
-    return getAllArticles().then((articles) => {
-      setArticles(articles);
-      return articles;
-    });
-  });
-
-  //useEffect: if articles change, then refetch with useQuery
+  const { status, data, error, isFetching } = useQuery(
+    "fetchArticles",
+    async () => {
+      await handleAllArticles();
+      return getAllArticles;
+    }
+  );
 
   const { SearchBar } = Search;
 
@@ -101,15 +100,13 @@ export default function Articles(props) {
 }
 
 function AddArticleBlock(props) {
-  const { articles, setArticles, addArticle } = props;
-  const saveNewArticle = (article) => {
+  const { articles, setArticles, addArticle, getAllArticles } = props;
+  const saveNewArticle = async (article) => {
     if (!article || !Object.keys(article).length) {
       return;
     }
-    let list = [...articles];
-    list.push(article);
-    addArticle(1, article);
-    // setArticles(list);
+    await addArticle(1, article);
+    setArticles(getAllArticles);
   };
   return (
     <Form>
