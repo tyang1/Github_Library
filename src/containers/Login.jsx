@@ -7,25 +7,19 @@ import "./Login.css";
 export default function Login(props) {
   const { submitHandler, setRedirect } = props;
   const [mode, setMode] = useState(null);
-  console.log("login props", submitHandler, props);
 
-  function handleSubmit({ event, email, password, setModalShow }) {
+  async function handleSubmit({ event, email, password, setModalShow }) {
     //todo: figuring out why the /login is being called twice, and there's no cookie sent with response
     event.preventDefault();
-    if (mode == "logIn") {
-      submitHandler({ email, password })
-        .then((success) => {
-          if (success) {
-            setRedirect("/home");
-            return true;
-          } else {
-            return false;
-          }
-        })
-        .catch((err) => {
-          setModalShow("The credentials provided is incorrect");
-          return false;
-        });
+    if (mode === "logIn") {
+      const success = await submitHandler({ email, password });
+      if (success) {
+        setRedirect("/home");
+        return true;
+      } else {
+        setModalShow("The credentials provided is incorrect");
+        return false;
+      }
     } else {
       setRedirect("/signup");
     }
