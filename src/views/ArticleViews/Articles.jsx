@@ -4,7 +4,7 @@ import Form from "react-bootstrap/Form";
 import BasicTable from "./BasicTable.jsx";
 import MyVerticallyCenteredModal from "../ArticleViews/MyVerticallyCenteredModal.jsx";
 import ToolkitProvider, { Search } from "react-bootstrap-table2-toolkit";
-import { useQuery } from "react-query";
+import { useQuery, useMutation, queryCache } from "react-query";
 
 import "bootstrap/dist/css/bootstrap.css";
 import "react-bootstrap-table-next/dist/react-bootstrap-table2.min.css";
@@ -17,16 +17,30 @@ const formGroupStyle = {
 };
 
 export default function Articles(props) {
+  console.log("article props", props);
   const { getAllArticles, addArticle, getUserId, handleAllArticles } = props;
-  const [articles, setArticles] = useState([]);
-
   const [modalShow, setModalShow] = useState(false);
 
   const { status, data, error, isFetching } = useQuery(
     "fetchArticles",
     async () => {
-      await handleAllArticles();
-      return getAllArticles;
+      try {
+        console.log("front end handleArticles", handleAllArticles);
+        // await handleAllArticles();
+        // return getAllArticles;
+      } catch (e) {
+        throw new Error(e);
+      }
+    }
+  );
+
+  const [mutatePostArticle] = useMutation(
+    async (article) => await addArticle(1, article),
+    {
+      onSuccess: () => {
+        // Query Invalidations
+        queryCache.invalidateQueries("fetchArticles");
+      },
     }
   );
 
@@ -78,11 +92,7 @@ export default function Articles(props) {
                 withModalTitle={false}
                 withModalHeader={true}
                 modalBody={
-                  <AddArticleBlock
-                    articles={articles}
-                    setArticles={setArticles}
-                    addArticle={addArticle}
-                  />
+                  <AddArticleBlock mutatePostArticle={mutatePostArticle} />
                 }
               />
               <div style={{ marginBottom: "10px" }}>
@@ -90,7 +100,7 @@ export default function Articles(props) {
                   add more articles
                 </Button>
               </div>
-              <BasicTable data={articles} columns={columns} />
+              <BasicTable data={[]} columns={columns} />
             </div>
           )}
         </ToolkitProvider>
@@ -100,13 +110,13 @@ export default function Articles(props) {
 }
 
 function AddArticleBlock(props) {
-  const { articles, setArticles, addArticle, getAllArticles } = props;
+  const { mutatePostArticle } = props;
+  //TODO: consider making the following react-query mutation
   const saveNewArticle = async (article) => {
     if (!article || !Object.keys(article).length) {
       return;
     }
-    await addArticle(1, article);
-    setArticles(getAllArticles);
+    await mutatePostArticle(1, article);
   };
   return (
     <Form>

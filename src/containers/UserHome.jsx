@@ -6,19 +6,39 @@ import React, {
   useState,
   Suspense,
   useMemo,
+  useRef,
 } from "react";
-import { Link, Switch, Route } from "react-router-dom";
+import {
+  Link,
+  Switch,
+  Route,
+  useRouteMatch,
+  useLocation,
+} from "react-router-dom";
 import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
 // import { getAllArticles, addArticle } from "../actions/API.js";
 import Articles from "../views/ArticleViews/Articles.jsx";
 import "bootstrap/dist/css/bootstrap.css";
+import userStore from "../state/userStore.js";
 
 export default function UserHome(props) {
+  const { url, path } = useRouteMatch();
+  console.log("url, path", url, path);
+  // let location = useLocation();
+  // const childRef = useRef();
+
+  // useEffect(() => {
+  //   // const page = location.pathname;
+  //   document.body.classList.add("is-loaded");
+  //   childRef.current.init();
+  //   // trackPage(page);
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [location]);
+
   //handling rerouting here
   //once at home, we would have to save the userId from the cookie
   //to the state of the component
-  const { getUserId, getAllArticles, addArticle, handleAllArticles } = props;
   //when the path changes, then pass the getUserId down
 
   return (
@@ -39,16 +59,16 @@ export default function UserHome(props) {
           </Nav>
         </Navbar.Collapse>
       </Navbar>
-      <Switch>
-        <Route exact path={`/articles`}>
-          <Articles
-            getUserId={getUserId}
-            getAllArticles={getAllArticles}
-            addArticle={addArticle}
-            handleAllArticles={handleAllArticles}
-          />
-        </Route>
-      </Switch>
+      {/* <Switch> */}
+      <Route path="/articles">
+        <Articles
+          getUserId={userStore.getUserId}
+          getAllArticles={userStore.getAllArticles}
+          addArticle={userStore.addArticle}
+          handleAllArticles={userStore.handleAllArticles}
+        />
+      </Route>
+      {/* </Switch> */}
     </div>
   );
 }
