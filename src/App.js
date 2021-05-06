@@ -6,7 +6,7 @@ import {
   Redirect,
   Route,
 } from "react-router-dom";
-// import { signUp, logIn } from "./actions/API.js";
+import { signUp, logIn } from "./actions/API.js";
 import AppRoute from "./utils/AppRoute";
 import Login from "./containers/Login.jsx";
 import Signup from "./containers/Signup.jsx";
@@ -21,7 +21,6 @@ import Home from "./views/Home";
 import UserHome from "./containers/UserHome.jsx";
 import { QueryClient, QueryClientProvider } from "react-query";
 
-//Initialize user state
 import userStore from "./state/userStore.js";
 // Initialize Google Analytics
 ReactGA.initialize(process.env.REACT_APP_GA_CODE);
@@ -52,34 +51,32 @@ const App = () => {
           <BrowserRouter>
             <Redirect to={redirect} />
             <Switch>
-              <Route exact path="/signup">
+              <Route path="/signup">
                 <Signup
                   submitHandler={userStore.signUp}
                   setRedirect={setRedirect}
                 />
               </Route>
-              <Route exact path="/login">
+              <Route path="/login">
                 <Login
                   submitHandler={userStore.logIn}
                   setRedirect={setRedirect}
                 />
               </Route>
-              <Route exact path="/home">
+              <Route path="/home">
                 <UserHome
-                // getUserId={userStore.getUserId}
-                // handleAllArticles={userStore.handleAllArticles}
-                // addArticle={userStore.addArticle}
-                // getAllArticles={userStore.getAllArticles}
+                  getAllArticles={userStore.getAllArticles}
+                  handleAllArticles={userStore.handleAllArticles}
+                  addArticle={userStore.addArticle}
                 />
               </Route>
-              {/* <Route path="/articles">
+              <Route path="/articles">
                 <UserHome
-                // getUserId={userStore.getUserId}
-                // handleAllArticles={userStore.handleAllArticles}
-                // addArticle={userStore.addArticle}
-                // getAllArticles={userStore.getAllArticles}
+                  getAllArticles={userStore.getAllArticles}
+                  handleAllArticles={userStore.handleAllArticles}
+                  addArticle={userStore.addArticle}
                 />
-              </Route> */}
+              </Route>
             </Switch>
           </BrowserRouter>
         </>
@@ -109,25 +106,8 @@ const App = () => {
                   submitHandler={userStore.signUp}
                   setRedirect={setRedirect}
                 />
-                {/* <AppRoute
-                  exact
-                  path="/articles"
-                  component={UserHome}
-                  // getUserId={userStore.getUserId}
-                  // getAllArticles={userStore.getAllArticles}
-                  // addArticle={userStore.addArticle}
-                  // handleAllArticles={userStore.handleAllArticles}
-                  setRedirect={setRedirect}
-                /> */}
-                <AppRoute
-                  exact
-                  path="/home"
-                  component={UserHome}
-                  // getUserId={userStore.getUserId}
-                  // handleAllArticles={userStore.handleAllArticles}
-                  // getAllArticles={userStore.getAllArticles}
-                  // addArticle={userStore.addArticle}
-                />
+                <AppRoute exact path="/articles" component={UserHome} />
+                <AppRoute exact path="/home" component={UserHome} />
               </Switch>
             )}
           />

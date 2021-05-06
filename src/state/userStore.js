@@ -21,6 +21,7 @@ export class UserStore {
       tags: observable,
       getUserId: computed,
       getAllArticles: computed,
+      handleAllArticles: action,
       addArticle: action,
       signUp: action,
       logIn: action,
