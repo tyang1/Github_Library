@@ -65,16 +65,16 @@ const App = () => {
               </Route>
               <Route path="/home">
                 <UserHome
-                  getAllArticles={userStore.getAllArticles}
-                  handleAllArticles={userStore.handleAllArticles}
-                  addArticle={userStore.addArticle}
+                  // getAllArticles={userStore.getAllArticles}
+                  // handleAllArticles={userStore.handleAllArticles}
+                  // addArticle={userStore.addArticle}
                 />
               </Route>
               <Route path="/articles">
                 <UserHome
-                  getAllArticles={userStore.getAllArticles}
-                  handleAllArticles={userStore.handleAllArticles}
-                  addArticle={userStore.addArticle}
+                  // getAllArticles={userStore.getAllArticles}
+                  // handleAllArticles={userStore.handleAllArticles}
+                  // addArticle={userStore.addArticle}
                 />
               </Route>
             </Switch>

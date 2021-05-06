@@ -5,6 +5,7 @@ import BasicTable from "./BasicTable.jsx";
 import MyVerticallyCenteredModal from "../ArticleViews/MyVerticallyCenteredModal.jsx";
 import ToolkitProvider, { Search } from "react-bootstrap-table2-toolkit";
 import { useQuery } from "react-query";
+import { observer } from "mobx-react-lite";
 
 import "bootstrap/dist/css/bootstrap.css";
 import "react-bootstrap-table-next/dist/react-bootstrap-table2.min.css";
@@ -16,9 +17,8 @@ const formGroupStyle = {
   flex: "1",
 };
 
-export default function Articles(props) {
-  console.log("Articles props", props);
-  const { getAllArticles, addArticle, handleAllArticles } = props;
+export const Articles = observer((props) => {
+  const { userStore } = props;
   const [articles, setArticles] = useState([]);
 
   const [modalShow, setModalShow] = useState(false);
@@ -26,8 +26,8 @@ export default function Articles(props) {
   const { status, data, error, isFetching } = useQuery(
     "fetchArticles",
     async () => {
-      await handleAllArticles();
-      let data = getAllArticles;
+      await userStore.handleAllArticles();
+      let data = userStore.getAllArticles;
       setArticles(data);
       return data;
     }
@@ -86,7 +86,7 @@ export default function Articles(props) {
                   <AddArticleBlock
                     articles={articles}
                     setArticles={setArticles}
-                    addArticle={addArticle}
+                    addArticle={userStore.addArticle}
                   />
                 }
               />
@@ -102,7 +102,7 @@ export default function Articles(props) {
       )}
     </>
   );
-}
+});
 
 function AddArticleBlock(props) {
   const { articles, setArticles, addArticle } = props;

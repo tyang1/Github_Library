@@ -11,11 +11,11 @@ import { Link, Switch, Route } from "react-router-dom";
 import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
 // import api from "../actions/API.js";
-import Articles from "../views/ArticleViews/Articles.jsx";
+import { Articles } from "../views/ArticleViews/Articles.jsx";
 import "bootstrap/dist/css/bootstrap.css";
+import userStore from "../state/userStore.js";
 
 export default function UserHome(props) {
-  const { handleAllArticles, addArticle, getAllArticles } = props;
   //handling rerouting here
 
   return (
@@ -38,11 +38,7 @@ export default function UserHome(props) {
       </Navbar>
       <Switch>
         <Route exact path={`/articles`}>
-          <Articles
-            getAllArticles={getAllArticles}
-            addArticle={addArticle}
-            handleAllArticles={handleAllArticles}
-          />
+          <Articles userStore={userStore} />
         </Route>
       </Switch>
     </div>
